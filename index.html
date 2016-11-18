@@ -15,7 +15,7 @@
   var voiceType = "wilson";
   var textBox = document.getElementById("DialogueInput");
   function playRandomLine(sounds, voice){
-    var dialogueline = sounds[Math.floor(Math.random * sounds.length)];
+    var dialogueline = sounds[Math.floor(Math.random() * sounds.length)];
     var audio = document.getElementById("speechMain");
     audio.src = ("voicelines/" + voice + "/" + dialogueline);
     audio.play();
