@@ -38,6 +38,11 @@
     }
     playRandomLine(linearray, voiceType);
     }
+  textBox.onkeydown = function(e){
+   if(e.keyCode == 13){
+     checkInput()
+   }
+};
   textBox.addEventListener("submit", checkInput());
 </script>
 </body>
