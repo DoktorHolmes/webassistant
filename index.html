@@ -22,7 +22,7 @@
     audio.play();
   }
   var voiceEnabled = false;
-  function enableVoice(){
+  var enableVoice = function(){
      console.log("Initializing speech recognition.");
      if (annyang) {
       // Let's define our first command. First the text we expect, and then the function it should call
