@@ -32,9 +32,11 @@
     
     if(dialogue[value]){
         linearray = dialogue[value];
+        console.log(linearray);
     }
     else{
         linearray = dialogue["unknown"];
+        console.log(linearray);
     }
     playRandomLine(linearray, voiceType);
     }
