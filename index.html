@@ -36,9 +36,10 @@
     // Start listening. You can call this here, or attach this call to an event, button, etc.
     annyang.start();
   }
-  function checkInput(val){
+  var checkInput = function(val){
     try{
     var value = textBox.value;
+    console.log(val);
     var linearray;
     var dialogue = {
       "hello": ["greeting01", "greeting02.mp3", "greeting03.mp3"],
