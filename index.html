@@ -51,7 +51,11 @@
       "enable voice": enableVoice
     }
     if(functions[val]){
-      window[functions[val]]();
+      var fname = functions[val];
+      var fn = window[fname];
+      if(typeof fn === 'function') {
+      fn(t.parentNode.id);
+    }
     }
     if(dialogue[val]){
         linearray = dialogue[value];
