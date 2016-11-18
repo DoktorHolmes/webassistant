@@ -24,6 +24,13 @@
   var changeVoiceType = function(voiceName){
       voiceType = voiceName;
    }
+    var changeVoiceBaxton = function(){
+      voiceType = "baxton";
+   }
+    
+    var changeVoiceWilson = function(){
+      voiceType = "wilson";
+   }
   var voiceEnabled = false;
   var enableVoice = function(){
      console.log("Initializing speech recognition.");
@@ -57,9 +64,9 @@
       "unknown": ["unknown01.mp3", "unknown02.mp3"]
         }
     var functions = {
-      "enable voice": enableVoice
-      "change voice to baxton": changeVoiceType("baxton");
-      "change voice to wilson": changeVoiceType("wilson");
+      "enable voice": enableVoice,
+      "change voice to baxton": changeVoiceBaxton,
+      "change voice to wilson": changeVoiceWilson,
     }
     if(functions[val]){
       var fname = functions[val];
