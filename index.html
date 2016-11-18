@@ -37,7 +37,7 @@
        var commands = {
           '*value': checkInput
           }
-    annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {
+    annyang.addCallback('result', function(userSaid, commandText, phrases) {
       checkInput(userSaid);
     });
 
