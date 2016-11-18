@@ -45,9 +45,15 @@
       "hello": ["greeting01", "greeting02.mp3", "greeting03.mp3"],
       "hey": ["greeting01", "greeting02.mp3", "greeting03.mp3"],
       "hi": ["greeting01", "greeting02.mp3", "greeting03.mp3"],
+      "enable voice": ["hearme.mp3"],
       "unknown": ["unknown01.mp3", "unknown02.mp3"]
         }
-    
+    var functions = {
+      "enable voice": enableVoice
+    }
+    if(functions[val]){
+      window[functions[val]]();
+    }
     if(dialogue[val]){
         linearray = dialogue[value];
         console.log(linearray);
@@ -58,6 +64,7 @@
     }
     playRandomLine(linearray, voiceType);
     }
+    
     catch(e){
        console.log(e);
        playRandomLine(["error.mp3", "error2.mp3", "error3.mp3"], voiceType);
