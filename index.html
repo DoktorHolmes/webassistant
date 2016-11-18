@@ -35,7 +35,7 @@
   var enableVoice = function(){
      console.log("Initializing speech recognition.");
        var commands = {
-          '*val': checkInput(val)
+          '*val': checkInput
           }
     annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {
       checkInput(userSaid);
