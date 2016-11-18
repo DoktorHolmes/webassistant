@@ -1,5 +1,9 @@
 <html>
-<head><title="BaxtonWeb 0.1"></head>
+<head>
+  
+  <title="BaxtonWeb 0.1">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    </head>
 
 <body>
 <div id="mainDiv" align="center">
@@ -8,6 +12,21 @@
   <audio id="speechMain"></audio>
   </div>
 <script>
+  var voiceType = "wilson";
+  var textBox = document.getElementById("DialogueInput");
+  function playRandomSound(sounds, voice){
+    var dialogueline = sounds[Math.floor(Math.random * sounds.length)];
+    var audio = document.getElementById("speechMain");
+    audio.src = ("voicelines/" + voice + "/" + dialogueline;
+  }
+  function checkInput(){
+    var value = textBox.value;
+    var dialogue = {
+      "hello": ["greeting01", "greeting02"],
+      "hey": ["greeting01", "greeting02"],
+      "hi": ["greeting01", "greeting02"]    }
+    
+  }
 </script>
 </body>
 </html>
