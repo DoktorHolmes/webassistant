@@ -55,9 +55,8 @@
     if(functions[val]){
       var fname = functions[val];
       console.log(fname);
-      var fn = window[fname];
-      if(typeof fn === 'function') {
-      fn(t.parentNode.id);
+      if(typeof fname === 'function') {
+      fname();
     }
     }
     if(dialogue[val]){
