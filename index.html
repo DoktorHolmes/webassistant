@@ -41,13 +41,14 @@
     }
     playRandomLine(linearray, voiceType);
     }
+    catch(e){
+       console.log(e);
+       playRandomLine(["error.mp3", "error2.mp3", "error3.mp3"], voiceType);
+   }
   }
   
    }
-   catch(e){
-    console.log(e);
-    playRandomLine(["error.mp3", "error2.mp3", "error3.mp3"], voiceType);
-   }
+
   
   textBox.onkeydown = function(e){
    if(e.keyCode == 13){
