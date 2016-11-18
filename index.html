@@ -11,6 +11,7 @@
   <input type="text" id="DialogueInput"></input>
   <audio id="speechMain"></audio>
   </div>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>
 <script>
   var voiceType = "wilson";
   var textBox = document.getElementById("DialogueInput");
@@ -20,7 +21,23 @@
     audio.src = ("voicelines/" + voice + "/" + dialogueline);
     audio.play();
   }
-  function checkInput(){
+  var voiceEnabled = false;
+  function enableVoice(){
+     if (annyang) {
+      // Let's define our first command. First the text we expect, and then the function it should call
+       var commands = {
+          '*val': checkInput
+          }
+        };
+
+     // Add our commands to annyang
+    annyang.addCommands(commands);
+
+    // Start listening. You can call this here, or attach this call to an event, button, etc.
+    annyang.start();
+  }
+  }
+  function checkInput(val){
     try{
     var value = textBox.value;
     var linearray;
@@ -31,7 +48,7 @@
       "unknown": ["unknown01.mp3", "unknown02.mp3"]
         }
     
-    if(dialogue[value]){
+    if(dialogue[val]){
         linearray = dialogue[value];
         console.log(linearray);
     }
@@ -52,7 +69,7 @@
   
   textBox.onkeydown = function(e){
    if(e.keyCode == 13){
-     checkInput()
+     checkInput(textBox.value)
    }
 };
   textBox.addEventListener("submit", checkInput);
