@@ -7,6 +7,7 @@
 
 <body>
 <div id="mainDiv" align="center">
+  <div id="timer" align="center"></div>
 <image id="icon" src="images/faces/house.png"><br>
   <input type="text" id="DialogueInput"></input>
   <audio id="speechMain"></audio>
@@ -32,6 +33,8 @@
       voiceType = "wilson";
    }
  var isListening = false;
+ var timerDiv = document.getElementById("timer");
+ var timerTime = 0;
   var voiceEnabled = false;
   var enableVoice = function(){
      console.log("Initializing speech recognition.");
@@ -71,6 +74,24 @@
     });
     annyang.trigger("hello");
   }
+  var timerInstance;
+  var startTimer = function(time){
+    timerTime = time * 60;
+    timerInstance = setInterval(countTimer(), 1000);
+  }
+  var countTimer = function(){
+    if(timerTime > 0){
+      timerTime = timerTime - 1;
+      timerDiv.innerHTML = timerTime.toString();
+      var audioTick = new Audio("sound/tick1.wav");
+      audioTick.play();
+    }
+    else{
+     var audioTimer = new Audio("sound/timerEnd.mp3");
+     audioTimer.play();
+     clearInterval(timerInstance);
+    }
+  }
   var disableVoice = function(){
     annyang.abort();
   }
@@ -91,11 +112,15 @@
       "change voice to wilson": ["changevoice.mp3"],
       "goodbye": ["goodbye.mp3", "goodbye02.mp3"],
       "bye": ["goodbye.mp3", "goodbye02.mp3"],
+      "set a timer for 1 minute": ["okay.mp3"],
       "unknown": ["unknown01.mp3", "unknown02.mp3"]
         }
     var functions = {
       "enable voice": enableVoice,
       "disable voice": disableVoice,
+      "set a timer for 1 minute": function(){
+        startTimer(1);
+      },
       "change voice to baxton": changeVoiceBaxton,
       "change voice to wilson": changeVoiceWilson,
     }
