@@ -65,7 +65,8 @@
     // Start listening. You can call this here, or attach this call to an event, button, etc.
     annyang.start();
     annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {
-      checkInput(userSaid);
+    ) checkInput(userSaid);
+      console.log(userSaid);
     });
   }
   var disableVoice = function(){
