@@ -49,6 +49,14 @@
         'disable voice': checkInput,
         'goodbye': checkInput,
         'bye': checkInput,
+        'set a timer for 1 minute': checkInput,
+        'set a timer for 5 minutes': checkInput,
+        'set a timer for 10 minutes': checkInput,
+        'set a timer for 15 minutes': checkInput,
+        'set a timer for 30 minutes': checkInput,
+        'set a timer for 45 minutes': checkInput,
+        'set a timer for 50 minutes': checkInput,
+        'set a timer for 1 hour': checkInput,
         'change voice to baxton': checkInput,
         'change voice to wilson': checkInput,
 };
@@ -113,9 +121,12 @@
       "goodbye": ["goodbye.mp3", "goodbye02.mp3"],
       "bye": ["goodbye.mp3", "goodbye02.mp3"],
       "set a timer for 1 minute": ["okay.mp3"],
+      "set a timer for 5 minutes": ["okay.mp3"],
       "set a timer for 10 minutes": ["okay.mp3"],
       "set a timer for 15 minutes": ["okay.mp3"],
       "set a timer for 30 minutes": ["okay.mp3"],
+      "set a timer for 45 minutes": ["okay.mp3"],
+      "set a timer for 50 minutes": ["okay.mp3"],
       "set a timer for 1 hour": ["okay.mp3"],
       "unknown": ["unknown01.mp3", "unknown02.mp3"]
         }
@@ -125,6 +136,9 @@
       "set a timer for 1 minute": function(){
         startTimer(1);
       },
+      "set a timer for 5 minutes": function(){
+        startTimer(5);
+      },
       "set a timer for 10 minutes": function(){
         startTimer(10);
       },
@@ -133,6 +147,12 @@
       },
       "set a timer for 30 minutes": function(){
         startTimer(30);
+      },
+      "set a timer for 45 minutes": function(){
+        startTimer(45);
+      },
+      "set a timer for 50 minutes": function(){
+        startTimer(50);
       },
       "set a timer for 1 hour": function(){
         startTimer(60);
