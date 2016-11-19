@@ -113,6 +113,10 @@
       "goodbye": ["goodbye.mp3", "goodbye02.mp3"],
       "bye": ["goodbye.mp3", "goodbye02.mp3"],
       "set a timer for 1 minute": ["okay.mp3"],
+      "set a timer for 10 minutes": ["okay.mp3"],
+      "set a timer for 15 minutes": ["okay.mp3"],
+      "set a timer for 30 minutes": ["okay.mp3"],
+      "set a timer for 1 hour": ["okay.mp3"],
       "unknown": ["unknown01.mp3", "unknown02.mp3"]
         }
     var functions = {
@@ -120,6 +124,18 @@
       "disable voice": disableVoice,
       "set a timer for 1 minute": function(){
         startTimer(1);
+      },
+      "set a timer for 10 minutes": function(){
+        startTimer(10);
+      },
+      "set a timer for 15 minutes": function(){
+        startTimer(15);
+      },
+      "set a timer for 30 minutes": function(){
+        startTimer(30);
+      },
+      "set a timer for 1 hour": function(){
+        startTimer(60);
       },
       "change voice to baxton": changeVoiceBaxton,
       "change voice to wilson": changeVoiceWilson,
