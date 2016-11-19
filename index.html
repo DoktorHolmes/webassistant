@@ -31,10 +31,14 @@
     var changeVoiceWilson = function(){
       voiceType = "wilson";
    }
+ var isListening = false;
   var voiceEnabled = false;
   var enableVoice = function(){
      console.log("Initializing speech recognition.");
       var commands = {
+          'smith': function(){
+            isListening = true;
+          },
           'hello': checkInput,
           'hey': checkInput,  
          'hi': checkInput,
@@ -52,8 +56,16 @@
     // Start listening. You can call this here, or attach this call to an event, button, etc.
     annyang.start();
     annyang.addCallback('result', function(userSaid, commandText, phrases) {
+    if (userSaid[0] == "smith"){
       checkInput(userSaid[0]);
       console.log(userSaid[0]);
+    }
+    else if (isListening == true){
+      checkInput(userSaid[0]);
+      console.log(userSaid[0]);
+      isListening = false;
+    
+    
     });
     annyang.trigger("hello");
   }
