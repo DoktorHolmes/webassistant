@@ -43,14 +43,14 @@
           'change voice to baxton': checkInput,
           'change voice to wilson': checkInput,
           }
-    annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {
-      checkInput(userSaid);
-    });
 
      // Add our commands to annyang
     annyang.addCommands(commands);
     annyang.init(commands);
     annyang.debug();
+    annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {
+      checkInput(userSaid);
+    });
     // Start listening. You can call this here, or attach this call to an event, button, etc.
     annyang.start();
   }
