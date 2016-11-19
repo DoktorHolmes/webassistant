@@ -77,7 +77,7 @@
   var timerInstance;
   var startTimer = function(time){
     timerTime = time * 60;
-    timerInstance = setInterval(countTimer(), 1000);
+    timerInstance = setInterval(countTimer, 1000);
   }
   var countTimer = function(){
     if(timerTime > 0){
