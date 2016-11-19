@@ -57,8 +57,8 @@
     annyang.start();
     annyang.addCallback('result', function(userSaid, commandText, phrases) {
     if (userSaid[0].toLowerCase() == "smith"){
-      checkInput(userSaid[0]);
       console.log(userSaid[0]);
+      isListening = true;
     }
     else if (isListening == true){
       checkInput(userSaid[0]);
