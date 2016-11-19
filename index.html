@@ -55,12 +55,14 @@
       checkInput(userSaid);
       console.log(userSaid);
     });
+    annyang.trigger("hello");
   }
   var disableVoice = function(){
     annyang.abort();
   }
   var checkInput = function(value){
     var val = value;
+    val = val.toLowerCase();
     try{
     console.log(val);
     var linearray;
