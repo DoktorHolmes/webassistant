@@ -51,9 +51,9 @@
     annyang.debug();
     // Start listening. You can call this here, or attach this call to an event, button, etc.
     annyang.start();
-    annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {
-      checkInput(userSaid);
-      console.log(userSaid);
+    annyang.addCallback('result', function(userSaid, commandText, phrases) {
+      checkInput(userSaid[0]);
+      console.log(userSaid[0]);
     });
     annyang.trigger("hello");
   }
