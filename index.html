@@ -35,13 +35,27 @@
   var enableVoice = function(){
      console.log("Initializing speech recognition.");
        var commands = {
-          'hello': checkInput,
-          'hey': checkInput,
-          'tell me a joke': checkInput,
-          'enable voice': checkInput,
-          'disable voice': checkInput,
-          'change voice to baxton': checkInput,
-          'change voice to wilson': checkInput,
+          'hello': function(){
+            checkInput('hello');
+          }
+          'hey': function(){
+            checkInput('hey');
+          }
+          'tell me a joke': function(){
+            checkInput('tell me a joke');
+          }
+          'enable voice': function(){
+            checkInput('enable voice');
+          }
+          'disable voice': function(){
+            checkInput('disable voice');
+          }
+          'change voice to baxton': function(){
+            checkInput('change voice to baxton');
+          }
+          'change voice to wilson': function(){
+            checkInput('change voice to wilson');
+          }
           }
 
      // Add our commands to annyang
