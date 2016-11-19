@@ -48,11 +48,11 @@
     annyang.addCommands(commands);
     annyang.init(commands);
     annyang.debug();
+    // Start listening. You can call this here, or attach this call to an event, button, etc.
+    annyang.start();
     annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {
       checkInput(userSaid);
     });
-    // Start listening. You can call this here, or attach this call to an event, button, etc.
-    annyang.start();
   }
   var disableVoice = function(){
     annyang.abort();
