@@ -56,7 +56,7 @@
     // Start listening. You can call this here, or attach this call to an event, button, etc.
     annyang.start();
     annyang.addCallback('result', function(userSaid, commandText, phrases) {
-    if (userSaid[0] == "smith"){
+    if (userSaid[0].toLowerCase() == "smith"){
       checkInput(userSaid[0]);
       console.log(userSaid[0]);
     }
