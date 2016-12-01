@@ -16,7 +16,6 @@
   <iframe id="frame01" align="center" width="500px" height="400px">
 <script>
   var voiceType = "baxton";
-  var isSearchingYT = false;
   var textBox = document.getElementById("DialogueInput");
   function playRandomLine(sounds, voice){
     var dialogueline = sounds[Math.floor(Math.random() * sounds.length)];
@@ -24,6 +23,7 @@
     audio.src = ("voicelines/" + voice + "/" + dialogueline);
     audio.play();
   }
+  var isSearchingYT = false;
   function go_get(){
     var base_url = 'http://www.youtube.com/embed?listType=search&list=';
     var search_field = document.getElementById("DialogueInput").value;
@@ -205,11 +205,10 @@
   
   textBox.onkeydown = function(e){
    if(e.keyCode == 13){
-     if(isSearchingYT === true){
+     if(isSearchingYT == true){
         go_get();
-     }
-     else{
-        checkInput(textBox.value);
+     }else{
+     checkInput(textBox.value);
      }
    }
 };
