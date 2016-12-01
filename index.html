@@ -205,11 +205,11 @@
   
   textBox.onkeydown = function(e){
    if(e.keyCode == 13){
-     if(isSearchingYT == true){
+     if(isSearchingYT === true){
         go_get();
      }
      else{
-     checkInput(textBox.value)
+        checkInput(textBox.value);
      }
    }
 };
