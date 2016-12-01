@@ -24,14 +24,13 @@
     audio.play();
   }
   var isSearchingYT = false;
-  function go_get(){
+  var go_get = function(){
     var base_url = 'http://www.youtube.com/embed?listType=search&list=';
     var search_field = document.getElementById("DialogueInput").value;
     var target_url = base_url + search_field;
     var ifr = document.getElementById('frame01');
     ifr.src = target_url;
     isSearchingYT = false;
-    return false;
 }
   var changeVoiceType = function(voiceName){
       voiceType = voiceName;
