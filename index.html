@@ -11,6 +11,7 @@
 <image id="icon" src="images/faces/house.png"><br>
   <input type="text" id="DialogueInput"></input>
   <audio id="speechMain"></audio>
+  <audio id="alarms"></audio>
   </div>
   <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>
   <iframe id="frame01" align="center" width="500px" height="400px" frameBorder="0"></iframe>
@@ -22,6 +23,32 @@
     var audio = document.getElementById("speechMain");
     audio.src = ("voicelines/" + voice + "/" + dialogueline);
     audio.play();
+  }
+  var selfDestructConfirmed = false;
+  function selfDestruct(){
+    var icon = document.getElementById("icon");
+    var text01 = document.getElementById("timer");
+    if(selfDestructConfirmed != true){
+   
+    icon.src = "images/faces/house_alert.png";
+
+    text01.innerHTML = "THE SELF DESTRUCT FEATURE WILL WIPE ALL USER DATA USED ON THIS PAGE.  PLEASE CONFIRM BY ISSUING THE COMMAND 'confirm'.  IF YOU WISH TO CANCEL, PLEASE TYPE 'cancel'."
+    text01.style.color = "Red";
+    }
+    else{
+      var alarmAudio = document.getElementById("alarms");
+      alarmAudio.src = "sound/alarm01.wav";
+      alarmAudio.addEventListener("ended", alarmAudio.play);
+      alarmAudio.play();
+      
+    }
+  }
+  function cancelSelfDestruct(){
+    var icon = document.getElementById("icon");
+    var text01 = document.getElementById("timer");
+    icon.src = "images/faces/house.png";
+    text01.innerHTML = ""
+    text01.style.color = "Lime";
   }
   var isSearchingYT = false;
   var go_get = function(){
@@ -109,6 +136,27 @@
      var audioTimer = new Audio("sound/timerEnd.mp3");
      audioTimer.play();
      clearInterval(timerInstance);
+    }
+  }
+  var startTimerSD = function(time){
+    timerTime = time * 60;
+    timerInstance = setInterval(countTimerSD, 1000);
+  }
+  var countTimerSD = function(){
+    if(timerTime == 10){
+      playRandomLine(["goodbyeSD.mp3"], voiceType);
+    }
+    if(timerTime > 0){
+      timerTime = timerTime - 1;
+      timerDiv.innerHTML = timerTime.toString();
+      var audioTick = new Audio("sound/tick1.wav");
+      audioTick.play();
+    }
+    else{
+     var audioTimer = new Audio("sound/timerEnd.mp3");
+     audioTimer.play();
+     clearInterval(timerInstance);
+     Window.close();
     }
   }
   var disableVoice = function(){
