@@ -32,7 +32,7 @@
    
     icon.src = "images/faces/house_alert.png";
 
-    text01.innerHTML = "THE SELF DESTRUCT FEATURE WILL WIPE ALL USER DATA USED ON THIS PAGE.  PLEASE CONFIRM BY ISSUING THE COMMAND 'confirm'.  IF YOU WISH TO CANCEL, PLEASE TYPE 'cancel'."
+    text01.innerHTML = "THE SELF DESTRUCT FEATURE WILL WIPE ALL USER DATA USED ON THIS PAGE.  PLEASE CONFIRM BY ISSUING THE COMMAND AGAIN.  IF YOU WISH TO CANCEL, PLEASE TYPE 'cancel'."
     text01.style.color = "Red";
     }
     else{
@@ -42,6 +42,7 @@
       alarmAudio.play();
       
     }
+
   }
   function cancelSelfDestruct(){
     var icon = document.getElementById("icon");
@@ -97,6 +98,8 @@
         'change voice to baxton': checkInput,
         'change voice to wilson': checkInput,
         'search youtube': go_get,
+        'initiate self destruct':, checkInput,
+        'confirm': checkInput,
 };
 
      // Add our commands to annyang
@@ -188,6 +191,8 @@
       "set a timer for 50 minutes": ["okay.mp3"],
       "set a timer for 1 hour": ["okay.mp3"],
       "search youtube": ["okay.mp3"],
+      "initiate self destruct": ["selfdestructstart.mp3"],
+      "confirm": ["selfdestructconfirmed.mp3"],
       "unknown": ["unknown01.mp3", "unknown02.mp3"]
         }
     var functions = {
@@ -220,6 +225,10 @@
       "search youtube": function(){
         isSearchingYT = true;
       },
+      "initiate self destruct": function(){
+        selfDestruct();  
+        selfDestructConfirmed = true;
+      }
       "change voice to baxton": changeVoiceBaxton,
       "change voice to wilson": changeVoiceWilson,
     }
