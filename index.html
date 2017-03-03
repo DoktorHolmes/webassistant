@@ -1,0 +1,276 @@
+<html>
+<head>
+  
+  <title="BaxtonWeb 0.1">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    </head>
+
+<body>
+<div id="mainDiv" align="center">
+  <div id="timer" align="center" style="color:lime"></div>
+<image id="icon" src="images/faces/house.png"><br>
+  <input type="text" id="DialogueInput"></input>
+  <audio id="speechMain"></audio>
+  <audio id="alarms"></audio>
+  </div>
+  <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>
+  <iframe id="frame01" align="center" width="500px" height="400px" frameBorder="0"></iframe>
+<script>
+  var voiceType = "baxton";
+  var textBox = document.getElementById("DialogueInput");
+  function playRandomLine(sounds, voice){
+    var dialogueline = sounds[Math.floor(Math.random() * sounds.length)];
+    var audio = document.getElementById("speechMain");
+    audio.src = ("voicelines/" + voice + "/" + dialogueline);
+    audio.play();
+  }
+  var selfDestructConfirmed = false;
+  function selfDestruct(){
+    var icon = document.getElementById("icon");
+    var text01 = document.getElementById("timer");
+    if(selfDestructConfirmed != true){
+   
+    icon.src = "images/faces/house_alert.png";
+
+    text01.innerHTML = "THE SELF DESTRUCT FEATURE WILL WIPE ALL USER DATA USED ON THIS PAGE.  PLEASE CONFIRM BY ISSUING THE COMMAND AGAIN.  IF YOU WISH TO CANCEL, PLEASE TYPE 'cancel'."
+    text01.style.color = "Red";
+    }
+    else{
+      var alarmAudio = document.getElementById("alarms");
+      alarmAudio.src = "sound/alarm01.wav";
+      alarmAudio.addEventListener("ended", alarmAudio.play);
+      alarmAudio.play();
+      startTimerSD(5);
+    }
+
+  }
+  function cancelSelfDestruct(){
+    var icon = document.getElementById("icon");
+    var text01 = document.getElementById("timer");
+    icon.src = "images/faces/house.png";
+    text01.innerHTML = ""
+    text01.style.color = "Lime";
+  }
+  var isSearchingYT = false;
+  var go_get = function(){
+    var base_url = 'https://www.youtube.com/embed?listType=search&list=';
+    var search_field = document.getElementById("DialogueInput").value;
+    var target_url = base_url + search_field;
+    var ifr = document.getElementById('frame01');
+    ifr.src = target_url;
+    isSearchingYT = false;
+}
+  var changeVoiceType = function(voiceName){
+      voiceType = voiceName;
+   }
+    var changeVoiceBaxton = function(){
+      voiceType = "baxton";
+   }
+    
+    var changeVoiceWilson = function(){
+      voiceType = "wilson";
+   }
+ var isListening = false;
+ var timerDiv = document.getElementById("timer");
+ var timerTime = 0;
+  var voiceEnabled = false;
+  var enableVoice = function(){
+     console.log("Initializing speech recognition.");
+      var commands = {
+          'smith': function(){
+            isListening = true;
+          },
+          'hello': checkInput,
+          'hey': checkInput,  
+         'hi': checkInput,
+        'tell me a joke': checkInput,
+        'disable voice': checkInput,
+        'goodbye': checkInput,
+        'bye': checkInput,
+        'set a timer for 1 minute': checkInput,
+        'set a timer for 5 minutes': checkInput,
+        'set a timer for 10 minutes': checkInput,
+        'set a timer for 15 minutes': checkInput,
+        'set a timer for 30 minutes': checkInput,
+        'set a timer for 45 minutes': checkInput,
+        'set a timer for 50 minutes': checkInput,
+        'set a timer for 1 hour': checkInput,
+        'change voice to baxton': checkInput,
+        'change voice to wilson': checkInput,
+        'search youtube': go_get,
+        'initiate self destruct': checkInput,
+        'confirm': checkInput,
+};
+
+     // Add our commands to annyang
+    annyang.addCommands(commands);
+    console.log(commands);
+    annyang.init(commands);
+    annyang.debug();
+    // Start listening. You can call this here, or attach this call to an event, button, etc.
+    annyang.start();
+    annyang.addCallback('result', function(userSaid, commandText, phrases) {
+    if (userSaid[0].toLowerCase() == "smith"){
+      console.log(userSaid[0]);
+      isListening = true;
+    }
+    else if (isListening == true){
+      checkInput(userSaid[0]);
+      console.log(userSaid[0]);
+      isListening = false;
+    }
+    
+    });
+    annyang.trigger("hello");
+  }
+  var timerInstance;
+  var startTimer = function(time){
+    timerTime = time * 60;
+    timerInstance = setInterval(countTimer, 1000);
+  }
+  var countTimer = function(){
+    if(timerTime > 0){
+      timerTime = timerTime - 1;
+      timerDiv.innerHTML = timerTime.toString();
+      var audioTick = new Audio("sound/tick1.wav");
+      audioTick.play();
+    }
+    else{
+     var audioTimer = new Audio("sound/timerEnd.mp3");
+     audioTimer.play();
+     clearInterval(timerInstance);
+    }
+  }
+  var startTimerSD = function(time){
+    timerTime = time * 60;
+    timerInstance = setInterval(countTimerSD, 1000);
+  }
+  var countTimerSD = function(){
+    if(timerTime == 10){
+      playRandomLine(["goodbyeSD.mp3"], voiceType);
+    }
+    if(timerTime > 0){
+      timerTime = timerTime - 1;
+      timerDiv.innerHTML = timerTime.toString();
+      var audioTick = new Audio("sound/tick1.wav");
+      audioTick.play();
+    }
+    else{
+     var audioTimer = new Audio("sound/timerEnd.mp3");
+     audioTimer.play();
+     clearInterval(timerInstance);
+     Window.close();
+    }
+  }
+  var disableVoice = function(){
+    annyang.abort();
+  }
+  var checkInput = function(value){
+    var val = value;
+    val = val.toLowerCase();
+    try{
+    console.log(val);
+    var linearray;
+    var dialogue = {
+      "hello": ["greeting01.mp3", "greeting02.mp3", "greeting03.mp3"],
+      "hey": ["greeting01.mp3", "greeting02.mp3", "greeting03.mp3"],
+      "hi": ["greeting01.mp3", "greeting02.mp3", "greeting03.mp3"],
+      "tell me a joke": ["joke01.mp3", "joke02.mp3", "joke03.mp3", "joke04.mp3", "joke05.mp3", "joke06.mp3"],
+      "enable voice": ["hearme.mp3"],
+      "disable voice": ["okay.mp3"],
+      "change voice to baxton": ["changevoice.mp3"],
+      "change voice to wilson": ["changevoice.mp3"],
+      "goodbye": ["goodbye.mp3", "goodbye02.mp3"],
+      "bye": ["goodbye.mp3", "goodbye02.mp3"],
+      "set a timer for 1 minute": ["okay.mp3"],
+      "set a timer for 5 minutes": ["okay.mp3"],
+      "set a timer for 10 minutes": ["okay.mp3"],
+      "set a timer for 15 minutes": ["okay.mp3"],
+      "set a timer for 30 minutes": ["okay.mp3"],
+      "set a timer for 45 minutes": ["okay.mp3"],
+      "set a timer for 50 minutes": ["okay.mp3"],
+      "set a timer for 1 hour": ["okay.mp3"],
+      "search youtube": ["okay.mp3"],
+      "initiate self destruct": ["selfdestructconfirmed.mp3"],
+      "confirm": ["selfdestructconfirmed.mp3"],
+      "unknown": ["unknown01.mp3", "unknown02.mp3"]
+        }
+    var functions = {
+      "enable voice": enableVoice,
+      "disable voice": disableVoice,
+      "set a timer for 1 minute": function(){
+        startTimer(1);
+      },
+      "set a timer for 5 minutes": function(){
+        startTimer(5);
+      },
+      "set a timer for 10 minutes": function(){
+        startTimer(10);
+      },
+      "set a timer for 15 minutes": function(){
+        startTimer(15);
+      },
+      "set a timer for 30 minutes": function(){
+        startTimer(30);
+      },
+      "set a timer for 45 minutes": function(){
+        startTimer(45);
+      },
+      "set a timer for 50 minutes": function(){
+        startTimer(50);
+      },
+      "set a timer for 1 hour": function(){
+        startTimer(60);
+      },
+      "search youtube": function(){
+        isSearchingYT = true;
+      },
+      "initiate self destruct": function(){
+        selfDestruct();  
+        selfDestructConfirmed = true;
+      },
+      "change voice to baxton": changeVoiceBaxton,
+      "change voice to wilson": changeVoiceWilson,
+    }
+    if(functions[val]){
+      var fname = functions[val];
+      console.log(fname);
+      if(typeof fname === 'function') {
+      fname();
+    }
+    }
+    if(dialogue[val]){
+        linearray = dialogue[value];
+        console.log(linearray);
+    }
+    else{
+        linearray = dialogue["unknown"];
+        console.log(linearray);
+    }
+    playRandomLine(linearray, voiceType);
+    textBox.value = "";
+    }
+    
+    catch(e){
+       console.log(e);
+       playRandomLine(["error.mp3", "error2.mp3", "error3.mp3"], voiceType);
+   }
+  }
+  
+
+
+  
+  textBox.onkeydown = function(e){
+   if(e.keyCode == 13){
+     if(isSearchingYT == true){
+        go_get();
+     }else{
+     checkInput(textBox.value);
+     }
+     }
+   }
+  textBox.addEventListener("submit", checkInput);
+</script>
+</body>
+</html>
