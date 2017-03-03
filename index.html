@@ -63,6 +63,7 @@
   function playCheckers(){
     var iframe01 = document.getElementById("frame01");
     iframe01.src = "checkers/index.html";
+    playRandomTTS(["I'll have you know I'm quite skilled with games of logic.  Perhaps you are better!  We shall see.", "I'd love a game.  Shall we?", "Very good!  I am setting up the game now."]);
   }
   var isSearchingYT = false;
   var go_get = function(){
@@ -114,7 +115,7 @@
         'initiate self destruct': checkInput,
         'cancel self destruct': checkInput,
         'confirm self destruct': checkInput,
-        'play checkers': checkInput
+        'play checkers': playCheckers
 };
 
      // Add our commands to annyang
