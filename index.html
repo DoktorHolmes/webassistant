@@ -60,6 +60,10 @@
     text01.style.color = "Lime";
     clearInterval(timerInstance)
   }
+  function playCheckers(){
+    var iframe01 = document.getElementById("frame01");
+    frame01.src = "checkers/index.html";
+  }
   var isSearchingYT = false;
   var go_get = function(){
     var base_url = 'https://www.youtube.com/embed?listType=search&list=';
@@ -110,6 +114,7 @@
         'initiate self destruct': checkInput,
         'cancel self destruct': checkInput,
         'confirm self destruct': checkInput,
+        'play checkers': checkInput,
 };
 
      // Add our commands to annyang
@@ -226,7 +231,7 @@
       "confirm self destruct": ["Very well.  Might I say it was an honor to serve you."],
       "cancel self destruct": ["Might I say I am relieved that we did not have to resort to that.  Thank you."],
       "tell me a joke": ["Arial, papyrus, and comic sans walk into a bar, and the bartender says.  Hey!  We don't serve your type in here.", "If four out of five people suffer from radiation poisoning, does the fifth guy enjoy it?", "Two fish swim into a concrete wall.  One turns to the other and says.  Damn.", "A neutron walks into a bar and asks, how much for a drink.  The bartender replies for you, no charge."],
-      
+      "play checkers": ["I'll have you know I'm quite skilled with games of logic.  Perhaps you are better!  We shall see.", "I'd love a game.  Shall we?", "Very good!  I am setting up the game now."]
     }
     var functions = {
       "enable voice": enableVoice,
