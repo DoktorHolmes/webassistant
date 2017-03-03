@@ -25,6 +25,9 @@
     audio.src = ("voicelines/" + voice + "/" + dialogueline);
     audio.play();
   }
+  function playRandomTTS(arr){
+    responsiveVoice.speak(arr[Math.floor(math.random() * arr.length)], "UK English Male");
+  }
   var selfDestructConfirmed = false;
   function selfDestruct(){
     var icon = document.getElementById("icon");
@@ -196,6 +199,10 @@
       "confirm": ["selfdestructconfirmed.mp3"],
       "unknown": ["unknown01.mp3", "unknown02.mp3"]
         }
+    var dialogueTTS = {
+      "hello": ["Welcome back, sir.  Systems operating at 100% efficiency."],
+      "unknown": ["I don't understand.", "I beg your pardon?"]
+    }
     var functions = {
       "enable voice": enableVoice,
       "disable voice": disableVoice,
@@ -241,20 +248,21 @@
     }
     }
     if(dialogue[val]){
-        linearray = dialogue[value];
+        linearray = dialogueTTS[value];
+        
         console.log(linearray);
     }
     else{
-        linearray = dialogue["unknown"];
+        linearray = dialogueTTS["unknown"];
         console.log(linearray);
     }
-    playRandomLine(linearray, voiceType);
+    playRandomTTS(linearray, voiceType);
     textBox.value = "";
     }
     
     catch(e){
        console.log(e);
-       playRandomLine(["error.mp3", "error2.mp3", "error3.mp3"], voiceType);
+       playRandomTTS(["My apologies, but there has been an error.  Please see the console."]);
    }
   }
   
