@@ -143,7 +143,7 @@ function CanvasCheckers(canvas, predictor, rows, cols)
             result.toRow = (move >> 8) & 0xFF;
             result.toCol = (move) & 0xFF;
         }
-        playRandomTTS(["Your turn, sir.", "How will you counter this?", "Ah ha!", "Hmm...", "This will do.", "I should think this will suffice.", "Your move.", "Your move, sir.", "Here we are.", "Perhaps you should give up now.", "That will do quite nicely."]);
+        playRandomTTS(["Your turn, sir.", "It is your turn.", "Ah ha!", "Hmm...", "This will do.", "I should think this will suffice.", "Your move.", "Your move, sir.", "Here we are.", "Perhaps you should give up now.", "That will do."]);
         var winner = game.move(result.fromRow, result.fromCol,
                                result.toRow, result.toCol);
         if (winner) {
@@ -225,7 +225,7 @@ function CanvasCheckers(canvas, predictor, rows, cols)
         // The move was valid. If the player is allowed to move again,
         // re-select the piece and redraw.
         if (game.inMultiTurn()) {
-            playRandomTTS(["Well played, sir.", "Hmm...interesting.", "Oh ho!", "Really?  Hm.  Okay.", "Not what I would do, but then again, you are not a computer.", "Well done.", "I must think.  One moment.", "Curious."]);
+            
             selectedRow = row;
             selectedCol = col;
             Draw(game.board, row, col);
@@ -233,7 +233,7 @@ function CanvasCheckers(canvas, predictor, rows, cols)
         }
 
         Draw(game.board);
-
+        playRandomTTS(["Well played, sir.", "Hmm...interesting.", "Oh ho!", "Really?  Hm.  Okay.", "Not what I would do, but then again, you are not a computer.", "Well done.", "I must think.  One moment.", "Curious."]);
         // Otherwise, draw and let the computer make a move.
         if (computer)
             setTimeout(computerPlay, 400);
