@@ -12,7 +12,7 @@
 <h2>Checkers</h2>
 <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
 <p><strong id='red' style='color: red'>Red: Human (you!)</strong><br />
-   <strong id='blue' style='color: blue'>Blue: Your Browser</strong><br />
+   <strong id='blue' style='color: blue'>Blue: Smith</strong><br />
 </p>
 <canvas id="checkers"></canvas>
 <span id="predictor" style="display:none">0</span>
@@ -24,7 +24,7 @@ var game = new Checkers.Game(ui);
 game.start();
 
 function switchSides() {
-    document.getElementById('red').innerHTML = 'Red: Your Browser';
+    document.getElementById('red').innerHTML = 'Red: Smith';
     document.getElementById('blue').innerHTML = 'Human: (you!)';
     ui.switchSides();
 }
