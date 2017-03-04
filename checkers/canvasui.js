@@ -216,7 +216,6 @@ function CanvasCheckers(canvas, predictor, rows, cols)
                 alert(color + " player wins! Refresh to play again.");
                 return;
             }
-            playRandomTTS(["Well played, sir.", "Hmm...interesting.", "Oh ho!", "Really?  Hm.  Okay.", "Not what I would do, but then again, you are not a computer.", "Well done.", "I must think.  One moment.", "Curious."]);
         } catch (e) {
             alert('Invalid move: ' + e);
             Draw(game.board, selectedRow, selectedCol);
@@ -226,7 +225,7 @@ function CanvasCheckers(canvas, predictor, rows, cols)
         // The move was valid. If the player is allowed to move again,
         // re-select the piece and redraw.
         if (game.inMultiTurn()) {
-            
+            playRandomTTS(["Well played, sir.", "Hmm...interesting.", "Oh ho!", "Really?  Hm.  Okay.", "Not what I would do, but then again, you are not a computer.", "Well done.", "I must think.  One moment.", "Curious."]);
             selectedRow = row;
             selectedCol = col;
             Draw(game.board, row, col);
