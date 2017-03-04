@@ -24,7 +24,9 @@
 // WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
-
+function playRandomTTS(arr){
+    responsiveVoice.speak(arr[Math.floor(Math.random() * arr.length)], "UK English Male");
+  }
 function CanvasCheckers(canvas, predictor, rows, cols)
 {
     this.rows = rows;
@@ -124,7 +126,7 @@ function CanvasCheckers(canvas, predictor, rows, cols)
     var computerPlay = function () {
         var moves = new Checkers.MoveList(game.board.area());
         game.board.fillMoveList(moves);
-
+        
         var result;
         if (moves.length > 1) {
             predictor.innerHTML = 'thinking...';
@@ -141,7 +143,7 @@ function CanvasCheckers(canvas, predictor, rows, cols)
             result.toRow = (move >> 8) & 0xFF;
             result.toCol = (move) & 0xFF;
         }
-
+        playRandomTTS(["Your turn, sir.", "A valiant effort.  Now how will you counter this?", "Ah ha!", "Hmm...", "This will do."]);
         var winner = game.move(result.fromRow, result.fromCol,
                                result.toRow, result.toCol);
         if (winner) {
