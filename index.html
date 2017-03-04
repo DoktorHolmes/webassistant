@@ -115,7 +115,8 @@
         'initiate self destruct': checkInput,
         'cancel self destruct': checkInput,
         'confirm self destruct': checkInput,
-        'play checkers': playCheckers
+        'play checkers': playCheckers,
+        'thank you': checkInput,
 };
 
      // Add our commands to annyang
@@ -289,7 +290,7 @@
       fname();
     }
     }
-    if(dialogue[val]){
+    if(dialogueTTS[val]){
         linearray = dialogueTTS[value];
         
         console.log(linearray);
