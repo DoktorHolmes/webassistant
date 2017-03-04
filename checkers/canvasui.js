@@ -184,7 +184,7 @@ function CanvasCheckers(canvas, predictor, rows, cols)
         if (player) {
             if (player != game.player())
                 return;
-
+            
             // If the player is selecting an own piece, just update the display.
             if (!game.inMultiTurn()) {
                 selectedRow = row;
@@ -216,6 +216,7 @@ function CanvasCheckers(canvas, predictor, rows, cols)
                 alert(color + " player wins! Refresh to play again.");
                 return;
             }
+            playRandomTTS(["Well played, sir.", "Hmm...interesting.", "Oh ho!", "Really?  Hm.  Okay.", "Not what I would do, but then again, you are not a computer.", "Well done.", "I must think.  One moment.", "Curious."]);
         } catch (e) {
             alert('Invalid move: ' + e);
             Draw(game.board, selectedRow, selectedCol);
@@ -233,7 +234,7 @@ function CanvasCheckers(canvas, predictor, rows, cols)
         }
 
         Draw(game.board);
-        playRandomTTS(["Well played, sir.", "Hmm...interesting.", "Oh ho!", "Really?  Hm.  Okay.", "Not what I would do, but then again, you are not a computer.", "Well done.", "I must think.  One moment.", "Curious."]);
+       
         // Otherwise, draw and let the computer make a move.
         if (computer)
             setTimeout(computerPlay, 400);
