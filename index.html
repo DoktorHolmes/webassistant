@@ -112,7 +112,7 @@ var t = $("").wikiblurb({
  type: "text",
   
 });
-t = t.parse(text);
+t = JSON.parse(t);
 playRandomTTS(["Accessing wikipedia..." + t, "My wikipedia query returns the following..." + t, "Accessing..." + t]);
 }
 
