@@ -105,6 +105,8 @@ var isSearchingWikipedia = false;
 
 function getWikipediaSummary(searchQuery){
 
+searchQuery = searchQuery.replace(" ", "_")
+  
 var t = $("").wikiblurb({
  page: searchQuery,
  section: 0,
