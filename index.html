@@ -433,7 +433,6 @@ function conversationpatterns(uinput) {
       index = Math.ceil( len * Math.random());
       reply = convpatterns[i][index];
       soutput = uinput.replace(re, reply);
-      soutput = initialCap(soutput);
       if (!(uinput in dialogueTTS)){
       responsiveVoice.speak(soutput, "UK English Male");
       }
