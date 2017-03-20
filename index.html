@@ -416,7 +416,7 @@ function conversationpatterns(uinput) {
       reply = convpatterns[i][index];
       soutput = uinput.replace(re, reply);
       soutput = initialCap(soutput);
-      if !(uinput in dialogueTTS){
+      if (!(uinput in dialogueTTS)){
       responsiveVoice.speak(soutput, "UK English Male");
       }
       break;
