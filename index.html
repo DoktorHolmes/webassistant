@@ -329,9 +329,10 @@
       else{
         linearray = dialogueTTS["unknown"];
         console.log(linearray);
+        playRandomTTS(linearray, voiceType);
+        textBox.value = "";
       }
-    playRandomTTS(linearray, voiceType);
-    textBox.value = "";
+    
     }
    
     }
