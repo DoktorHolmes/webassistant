@@ -105,36 +105,14 @@ var isSearchingWikipedia = false;
 
 function getWikipediaSummary(searchQuery){
 
-
-// action=parse: get parsed text
-// page=Baseball: from the page Baseball
-// format=json: in json format
-// prop=text: send the text content of the article
-// section=0: top content of the page
-
-$url = 'http://en.wikipedia.org/w/api.php?format=json&action=parse&page=' + searchQuery.replace(" ", "_" + '&prop=text&section=0');
-$ch = curl_init($url);
-curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt ($ch, CURLOPT_USERAGENT, "SmithDailyAssistant_victoryuska@gmail.com"); // required by wikipedia.org server; use YOUR user agent with YOUR contact information. (otherwise your IP might get blocked)
-$c = curl_exec($ch);
-
-$json = json_decode($c);
-
-$content = $json->{'parse'}->{'text'}->{'*'}; // get the main text content of the query (it's parsed HTML)
-
-// pattern for first match of a paragraph
-$pattern = '#<p>(.*)</p>#Us'; // http://www.phpbuilder.com/board/showthread.php?t=10352690
-if(preg_match($pattern, $content, $matches))
-{
-    // print $matches[0]; // content of the first paragraph (including wrapping <p> tag)
-    print strip_tags($matches[1]); // Content of the first paragraph without the HTML tags.
-
-
-var t = strip_tags($matches[1]);
-
-playRandomTTS(["Accessing wikipedia..." + t, "My wikipedia query returns the following..." + t, "Accessing..." + t]);
-
+var t = "".wikiblurb({
+ page: searchQuery,
+ section: 0,
+ removeLinks: true,
+ type: "text",
+  
 }
+playRandomTTS(["Accessing wikipedia..." + t, "My wikipedia query returns the following..." + t, "Accessing..." + t]);
 }
 
   
