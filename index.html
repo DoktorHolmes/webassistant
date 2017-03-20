@@ -110,7 +110,7 @@ searchQuery = searchQuery.replace(" ", "_")
 var title = searchQuery;
 
 //Get Leading paragraphs (section 0)
-$.getJSON("http://en.wikipedia.org/w/api.php?format=json&action=parse&page=" + title + "&prop=text&section=0&callback=?", function (data) {
+$.getJSON("http://en.wikipedia.org/w/api.php?format=json&action=parse&page=" + title + "&prop=text&callback=?", function (data) {
     for (text in data.parse.text) {
         var text = data.parse.text[text].split("<p>");
         var pText = "";
