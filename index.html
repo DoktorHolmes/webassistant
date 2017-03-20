@@ -111,11 +111,12 @@ var t = $("").wikiblurb({
  page: searchQuery,
  section: 0,
  removeLinks: true,
- type: "plaintext",
+ type: "text",
   
 });
+var te = t["query"]["pages"];
 console.log(t);
-playRandomTTS(["Accessing wikipedia..." + t, "My wikipedia query returns the following..." + t, "Accessing..." + t]);
+playRandomTTS(["Accessing wikipedia..." + te, "My wikipedia query returns the following..." + te, "Accessing..." + te]);
 }
 
   
