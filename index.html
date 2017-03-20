@@ -123,8 +123,9 @@ $.ajax({
               var pText = data["query"]["pages"][key]["extract"];
               break
             }
+            document.getElementById("textArea").src = "https://en.wikipedia.org/wiki/" + title;
             playRandomTTS(["Accessing wikipedia..." + pText, "My wikipedia query returns the following..." + pText, "Accessing..." + pText]);
-            document.getElementById("textArea").innerHTML = pText;
+            //document.getElementById("textArea").innerHTML = pText;
         },
         error: function (errorMessage) {
         }
@@ -361,7 +362,7 @@ $.ajax({
         isSearchingWikipedia = true;
       },
       "stop": function(){
-        responseVoice.cancel();
+        responsiveVoice.cancel();
       },
       "change voice to baxton": changeVoiceBaxton,
       "change voice to wilson": changeVoiceWilson,
