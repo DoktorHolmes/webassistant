@@ -113,7 +113,7 @@ var title = searchQuery;
 //Get Leading paragraphs (section 0)
 $.ajax({
         type: "GET",
-        url: "//en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=&titles&redirects=1&page=" + title + "&callback=?",
+        url: "//en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=&redirects=1&titles=" + title + "&callback=?",
         async: false,
         dataType: "jsonp",
         success: function (data, textStatus, jqXHR) {
