@@ -113,12 +113,12 @@ var title = searchQuery;
 //Get Leading paragraphs (section 0)
 $.ajax({
         type: "GET",
-        url: "//en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=&redirects=1&titles=" + title + "&callback=?",
+        url: "//en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&explaintext=&redirects=1&titles=" + title + "&callback=?",
         async: false,
         dataType: "jsonp",
         success: function (data, textStatus, jqXHR) {
             console.log(data);
-            var pText = data;
+            var pText = data["query"]["pages"][0]["extract"];
             playRandomTTS(["Accessing wikipedia..." + pText, "My wikipedia query returns the following..." + pText, "Accessing..." + pText]);
             document.getElementById("textArea").innerHTML = pText;
         },
