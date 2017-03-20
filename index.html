@@ -83,7 +83,6 @@
       "thanks": ["You are most welcome.", "Of course.", "Proud to serve!"],
       "bye": ["Goodbye.", "Do come back soon.", "Farewell.", "Ta ta."],
       "goodbye": ["Goodbye.", "Do come back soon.", "Farewell.", "Ta ta."],
-      "toggle conversation mode": ["Conversation mode toggled."],
       "farewell": ["Goodbye.", "Do come back soon.", "Farewell.", "Ta ta."],
     }
   
@@ -251,6 +250,12 @@
   }
   var toggleConversationMode = function(){
     conversationModeActive = !conversationModeActive;
+    if(conversationModeActive){
+      responsiveVoice.speak("Conversation mode on.", "UK English Male");
+    }
+    else{
+      responsiveVoice.speak("Conversation mode off.", "UK English Male");
+    }
   }
   var checkInput = function(value){
     var val = value;
