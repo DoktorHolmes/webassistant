@@ -139,7 +139,9 @@
       console.log(userSaid[0]);
       isListening = false;
     }
-    
+    if(conversationModeActive){
+        conversationpatterns(phrases[0]);
+    }
     });
     annyang.trigger("hello");
   }
@@ -414,7 +416,9 @@ function conversationpatterns(uinput) {
       reply = convpatterns[i][index];
       soutput = uinput.replace(re, reply);
       soutput = initialCap(soutput);
+      if !(uinput in dialogueTTS){
       responsiveVoice.speak(soutput, "UK English Male");
+      }
       break;
     }
    }
@@ -426,7 +430,7 @@ function conversationpatterns(uinput) {
 
 //-------
 function initialCap(field) {
-   field = field.substr(0, 1).toUpperCase() + field.substr(1);
+   field = field.substr(0, 1).toLowerCase() + field.substr(1);
    return field
 }
 
