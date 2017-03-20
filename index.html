@@ -28,6 +28,69 @@
   function playRandomTTS(arr){
     responsiveVoice.speak(arr[Math.floor(Math.random() * arr.length)], "UK English Male");
   }
+  
+  
+  
+  
+      var dialogue = {
+      "hello": ["greeting01.mp3", "greeting02.mp3", "greeting03.mp3"],
+      "hey": ["greeting01.mp3", "greeting02.mp3", "greeting03.mp3"],
+      "hi": ["greeting01.mp3", "greeting02.mp3", "greeting03.mp3"],
+      "tell me a joke": ["joke01.mp3", "joke02.mp3", "joke03.mp3", "joke04.mp3", "joke05.mp3", "joke06.mp3"],
+      "enable voice": ["hearme.mp3"],
+      "disable voice": ["okay.mp3"],
+      "change voice to baxton": ["changevoice.mp3"],
+      "change voice to wilson": ["changevoice.mp3"],
+      "goodbye": ["goodbye.mp3", "goodbye02.mp3"],
+      "bye": ["goodbye.mp3", "goodbye02.mp3"],
+      "set a timer for 1 minute": ["okay.mp3"],
+      "set a timer for 5 minutes": ["okay.mp3"],
+      "set a timer for 10 minutes": ["okay.mp3"],
+      "set a timer for 15 minutes": ["okay.mp3"],
+      "set a timer for 30 minutes": ["okay.mp3"],
+      "set a timer for 45 minutes": ["okay.mp3"],
+      "set a timer for 50 minutes": ["okay.mp3"],
+      "set a timer for 1 hour": ["okay.mp3"],
+      "search youtube": ["okay.mp3"],
+      "initiate self destruct": ["selfdestructconfirmed.mp3"],
+      "confirm self destruct": ["selfdestructconfirmed.mp3"],
+      "unknown": ["unknown01.mp3", "unknown02.mp3"]
+        }
+    var dialogueTTS = {
+      "hello": ["Hello, sir.  Systems operating at 100% efficiency.", "Good day, sir.  A pleasure to see you again."],
+      "hey": ["Hello, sir.  Systems operating at 100% efficiency.", "Good day, sir.  A pleasure to see you again."],
+      "hi": ["Hello, sir.  Systems operating at 100% efficiency.", "Good day, sir.  A pleasure to see you again."],
+      "how are you": ["Quite well, thank you."],
+      "unknown": ["I don't understand.", "I beg your pardon?"],
+      "enable voice": ["I'm all ears."],
+      "disable voice": ["Voice disabled."],
+      "set a timer for 1 minute": ["Very good.  Timer set for one minute."],
+      "set a timer for 5 minutes": ["Very good.  Timer set for five minutes."],
+      "set a timer for 10 minutes": ["Very good.  Timer set for ten minutes."],
+      "set a timer for 15 minutes": ["Very good.  Timer set for fifteen minutes."],
+      "set a timer for 30 minutes": ["Very good.  Timer set for thirty minutes."],
+      "set a timer for 45 minutes": ["Very good.  Timer set for forty five minutes."],
+      "set a timer for 50 minutes": ["Very good.  Timer set for fifty minutes."],
+      "set a timer for 1 hour": ["Very good.  Timer set for one hour."],
+      "search youtube": ["What would you like to search for?"],
+      "change voice to baxton": ["Please see this url, doctor holmes dot github dot i o slash web assistant slash voice, to use the pre-recorded voicelines."],
+      "initiate self destruct": ["As you wish.  I require secondary confirmation.  Please say the command. confirm self destruct. to continue with the self destruct sequence."],
+      "confirm self destruct": ["Very well.  Might I say it was an honor to serve you."],
+      "cancel self destruct": ["Might I say I am relieved that we did not have to resort to that.  Thank you."],
+      "tell me a joke": ["Arial, papyrus, and comic sans walk into a bar, and the bartender says.  Hey!  We don't serve your type in here.", "If four out of five people suffer from radiation poisoning, does the fifth guy enjoy it?", "Two fish swim into a concrete wall.  One turns to the other and says.  Damn.", "A neutron walks into a bar and asks, how much for a drink.  The bartender replies for you, no charge."],
+      "play checkers": ["I'll have you know I'm quite skilled with games of logic.  Perhaps you are better!  We shall see.", "I'd love a game.  Shall we?", "Very good!  I am setting up the game now."],
+      "thank you": ["You are most welcome.", "Of course.", "Proud to serve!"],
+      "thanks": ["You are most welcome.", "Of course.", "Proud to serve!"],
+      "bye": ["Goodbye.", "Do come back soon.", "Farewell.", "Ta ta."],
+      "goodbye": ["Goodbye.", "Do come back soon.", "Farewell.", "Ta ta."],
+      "toggle conversation mode": ["Conversation mode toggled."],
+      "farewell": ["Goodbye.", "Do come back soon.", "Farewell.", "Ta ta."],
+    }
+  
+  
+  
+  
+  
   var timerInstance;
   var selfDestructConfirmed = false;
   function selfDestruct(){
@@ -196,60 +259,7 @@
     try{
     console.log(val);
     var linearray;
-    var dialogue = {
-      "hello": ["greeting01.mp3", "greeting02.mp3", "greeting03.mp3"],
-      "hey": ["greeting01.mp3", "greeting02.mp3", "greeting03.mp3"],
-      "hi": ["greeting01.mp3", "greeting02.mp3", "greeting03.mp3"],
-      "tell me a joke": ["joke01.mp3", "joke02.mp3", "joke03.mp3", "joke04.mp3", "joke05.mp3", "joke06.mp3"],
-      "enable voice": ["hearme.mp3"],
-      "disable voice": ["okay.mp3"],
-      "change voice to baxton": ["changevoice.mp3"],
-      "change voice to wilson": ["changevoice.mp3"],
-      "goodbye": ["goodbye.mp3", "goodbye02.mp3"],
-      "bye": ["goodbye.mp3", "goodbye02.mp3"],
-      "set a timer for 1 minute": ["okay.mp3"],
-      "set a timer for 5 minutes": ["okay.mp3"],
-      "set a timer for 10 minutes": ["okay.mp3"],
-      "set a timer for 15 minutes": ["okay.mp3"],
-      "set a timer for 30 minutes": ["okay.mp3"],
-      "set a timer for 45 minutes": ["okay.mp3"],
-      "set a timer for 50 minutes": ["okay.mp3"],
-      "set a timer for 1 hour": ["okay.mp3"],
-      "search youtube": ["okay.mp3"],
-      "initiate self destruct": ["selfdestructconfirmed.mp3"],
-      "confirm self destruct": ["selfdestructconfirmed.mp3"],
-      "unknown": ["unknown01.mp3", "unknown02.mp3"]
-        }
-    var dialogueTTS = {
-      "hello": ["Hello, sir.  Systems operating at 100% efficiency.", "Good day, sir.  A pleasure to see you again."],
-      "hey": ["Hello, sir.  Systems operating at 100% efficiency.", "Good day, sir.  A pleasure to see you again."],
-      "hi": ["Hello, sir.  Systems operating at 100% efficiency.", "Good day, sir.  A pleasure to see you again."],
-      "how are you": ["Quite well, thank you."],
-      "unknown": ["I don't understand.", "I beg your pardon?"],
-      "enable voice": ["I'm all ears."],
-      "disable voice": ["Voice disabled."],
-      "set a timer for 1 minute": ["Very good.  Timer set for one minute."],
-      "set a timer for 5 minutes": ["Very good.  Timer set for five minutes."],
-      "set a timer for 10 minutes": ["Very good.  Timer set for ten minutes."],
-      "set a timer for 15 minutes": ["Very good.  Timer set for fifteen minutes."],
-      "set a timer for 30 minutes": ["Very good.  Timer set for thirty minutes."],
-      "set a timer for 45 minutes": ["Very good.  Timer set for forty five minutes."],
-      "set a timer for 50 minutes": ["Very good.  Timer set for fifty minutes."],
-      "set a timer for 1 hour": ["Very good.  Timer set for one hour."],
-      "search youtube": ["What would you like to search for?"],
-      "change voice to baxton": ["Please see this url, doctor holmes dot github dot i o slash web assistant slash voice, to use the pre-recorded voicelines."],
-      "initiate self destruct": ["As you wish.  I require secondary confirmation.  Please say the command. confirm self destruct. to continue with the self destruct sequence."],
-      "confirm self destruct": ["Very well.  Might I say it was an honor to serve you."],
-      "cancel self destruct": ["Might I say I am relieved that we did not have to resort to that.  Thank you."],
-      "tell me a joke": ["Arial, papyrus, and comic sans walk into a bar, and the bartender says.  Hey!  We don't serve your type in here.", "If four out of five people suffer from radiation poisoning, does the fifth guy enjoy it?", "Two fish swim into a concrete wall.  One turns to the other and says.  Damn.", "A neutron walks into a bar and asks, how much for a drink.  The bartender replies for you, no charge."],
-      "play checkers": ["I'll have you know I'm quite skilled with games of logic.  Perhaps you are better!  We shall see.", "I'd love a game.  Shall we?", "Very good!  I am setting up the game now."],
-      "thank you": ["You are most welcome.", "Of course.", "Proud to serve!"],
-      "thanks": ["You are most welcome.", "Of course.", "Proud to serve!"],
-      "bye": ["Goodbye.", "Do come back soon.", "Farewell.", "Ta ta."],
-      "goodbye": ["Goodbye.", "Do come back soon.", "Farewell.", "Ta ta."],
-      "toggle conversation mode": ["Conversation mode toggled."],
-      "farewell": ["Goodbye.", "Do come back soon.", "Farewell.", "Ta ta."],
-    }
+
     var functions = {
       "enable voice": enableVoice,
       "disable voice": disableVoice,
