@@ -19,7 +19,7 @@
 	    section: 0,
 	    page: 'Jimi_Hendrix',
 	    removeLinks: false,	    
-	    type: 'all',
+	    type: 'plaintext',
 	    customSelector: '',
             filterSelector: '', 
             callback: function(){ }
