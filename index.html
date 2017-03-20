@@ -92,6 +92,7 @@
       "farewell": ["Goodbye.", "Do come back soon.", "Farewell.", "Ta ta."],
       "toggle conversation mode": ["Conversation mode toggled."],
       "search wikipedia": ["Please tell me what you wish to search for."],
+      "stop": ["As you wish.", "Very well."],
     }
     var dialogueIgnore = ["toggle conversation mode"];
  
@@ -358,6 +359,9 @@ $.ajax({
       },
 "search wikipedia": function(){
         isSearchingWikipedia = true;
+      },
+      "stop": function(){
+        responseVoice.cancel();
       },
       "change voice to baxton": changeVoiceBaxton,
       "change voice to wilson": changeVoiceWilson,
