@@ -252,10 +252,10 @@
   var toggleConversationMode = function(){
     conversationModeActive = !conversationModeActive;
     if(conversationModeActive){
-      responsiveVoice.speak("Conversation mode on.", "UK English Male");
+      playRandomTTS(["Conversation mode on."]);
     }
     else{
-      responsiveVoice.speak("Conversation mode off.", "UK English Male");
+      playRandomTTS(["Conversation mode off."]);
     }
   }
   var checkInput = function(value){
