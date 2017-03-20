@@ -110,37 +110,21 @@ searchQuery = searchQuery.replace(" ", "_")
 var title = searchQuery;
 
 //Get Leading paragraphs (section 0)
-$.getJSON("http://en.wikipedia.org/w/api.php?format=json&action=parse&page=" + title + "&prop=text&callback=?", function (data) {
-    for (text in data.parse.text) {
-        var text = data.parse.text[text].split("<p>");
-        var pText = "";
-
-        for (p in text) {
-            //Remove html comment
-            text[p] = text[p].split("<!--");
-            if (text[p].length > 1) {
-                text[p][0] = text[p][0].split(/\r\n|\r|\n/);
-                text[p][0] = text[p][0][0];
-                text[p][0] += "</p> ";
-            }
-            text[p] = text[p][0];
-
-            //Construct a string from paragraphs
-            if (text[p].indexOf("</p>") == text[p].length - 5) {
-                var htmlStrip = text[p].replace(/<(?:.|\n)*?>/gm, '') //Remove HTML
-                var splitNewline = htmlStrip.split(/\r\n|\r|\n/); //Split on newlines
-                for (newline in splitNewline) {
-                    if (splitNewline[newline].substring(0, 11) != "Cite error:") {
-                        pText += splitNewline[newline];
-                        pText += "\n";
-                    }
-                }
-            }
+$.ajax({
+        type: "GET",
+        url: "http://en.wikipedia.org/w/api.php?action=raw&format=plaintext&prop=text&section=0&page=" + title,
+        async: false,
+        dataType: "text",
+        success: function (data, textStatus, jqXHR) {
+            console.log(data);
+            var pText = data;
+            playRandomTTS(["Accessing wikipedia..." + pText, "My wikipedia query returns the following..." + pText, "Accessing..." + pText]);
+            document.getElementById("textArea").innerHTML = pText;
+        },
+        error: function (errorMessage) {
         }
-        pText = pText.substring(0, pText.length - 2); //Remove extra newline
-        pText = pText.replace(/\[\d+\]/g, ""); //Remove reference tags (e.x. [1], [4], etc)
-        playRandomTTS(["Accessing wikipedia..." + pText, "My wikipedia query returns the following..." + pText, "Accessing..." + pText]);
-        document.getElementById("textArea").innerHTML = pText;
+    });
+
     }
 });
 }
