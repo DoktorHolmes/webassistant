@@ -1,5 +1,12 @@
 html, body{
    background-color: Black;
+   width: 100%;
+	height: 400px
 
+}
 
+textArea{
+  position: absolute;
+  left: 650px;
+  top: 50px;
 }
