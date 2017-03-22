@@ -14,16 +14,10 @@
   <audio id="alarms"></audio>
   </div>
   <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src='jquery.wikiblurb.js'></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>
-  <iframe id="textArea" align="right" width="700px" height="600px" style="background-color:black; color:Lime" frameBorder="0"></iframe>
   <iframe id="frame01" align="center" width="500px" height="400px" frameBorder="0"></iframe>
- <!-- <iframe id="musicplayer" align="center" width="900px" height="500px" src="victor_musicplayer.html"></iframe>
--->
-  
+  <iframe id="musicplayer" align="center" width="900px" height="500px" frameBorder="0" src="victor_musicplayer.html"></iframe>
 <script>
-  window.onload = function(){
   var voiceType = "baxton";
   var textBox = document.getElementById("DialogueInput");
   function playRandomLine(sounds, voice){
@@ -92,48 +86,9 @@
       "goodbye": ["Goodbye.", "Do come back soon.", "Farewell.", "Ta ta."],
       "farewell": ["Goodbye.", "Do come back soon.", "Farewell.", "Ta ta."],
       "toggle conversation mode": ["Conversation mode toggled."],
-      "search wikipedia": ["Please tell me what you wish to search for."],
-      "stop": ["As you wish.", "Very well."],
     }
     var dialogueIgnore = ["toggle conversation mode"];
- 
-
-
-var isSearchingWikipedia = false;
-
-
-
-
-
-
-
-function getWikipediaSummary(searchQuery){
-
-searchQuery = searchQuery.replace(" ", "_")
-var title = searchQuery;
-
-//Get Leading paragraphs (section 0)
-$.ajax({
-        type: "GET",
-        url: "//en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&explaintext=&redirects=1&titles=" + title + "&callback=?",
-        async: false,
-        dataType: "jsonp",
-        success: function (data, textStatus, jqXHR) {
-            console.log(data);
-            for(var key in data["query"]["pages"]){
-              var pText = data["query"]["pages"][key]["extract"];
-              break
-            }
-            document.getElementById("textArea").src = "https://en.wikipedia.org/wiki/" + title;
-            playRandomTTS(["Accessing wikipedia..." + pText, "My wikipedia query returns the following..." + pText, "Accessing..." + pText]);
-            //document.getElementById("textArea").innerHTML = pText;
-        },
-        error: function (errorMessage) {
-        }
-    });
-
-    }
-
+  
   
   
   
@@ -228,8 +183,7 @@ $.ajax({
         'confirm self destruct': checkInput,
         'play checkers': playCheckers,
         'thank you': checkInput,
-        'toggle conversation mode': checkInput,
-        'search wikipedia': checkInput
+        'toggle conversation mode': checkInput
 };
 
      // Add our commands to annyang
@@ -308,6 +262,7 @@ $.ajax({
   var checkInput = function(value){
     var val = value;
     val = val.toLowerCase();
+    console.log(val);
     try{
     console.log(val);
     var linearray;
@@ -359,12 +314,6 @@ $.ajax({
       "toggle conversation mode": function(){
         toggleConversationMode();
       },
-"search wikipedia": function(){
-        isSearchingWikipedia = true;
-      },
-      "stop": function(){
-        responsiveVoice.cancel();
-      },
       "change voice to baxton": changeVoiceBaxton,
       "change voice to wilson": changeVoiceWilson,
     }
@@ -376,22 +325,13 @@ $.ajax({
     }
     }
     if(dialogueTTS[val]){
-        linearray = dialogueTTS[value];
+        linearray = dialogueTTS[val];
         
         console.log(linearray);
         playRandomTTS(linearray, voiceType);
     }
     else{
-     
-
-if(isSearchingWikipedia){
-
-    getWikipediaSummary(val);
-    isSearchingWikipedia = false;
-
-
-}
-else if(conversationModeActive){
+      if(conversationModeActive){
         conversationpatterns(val);
     }
       else{
@@ -418,10 +358,7 @@ else if(conversationModeActive){
    if(e.keyCode == 13){
      if(isSearchingYT == true){
         go_get();
-     }
-
-
-else{
+     }else{
      checkInput(textBox.value);
      }
      }
@@ -542,7 +479,7 @@ var testdata = new Array (
              }
 
 }
-  }
+
 </script>
 </body>
 </html>
