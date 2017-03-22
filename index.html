@@ -14,10 +14,16 @@
   <audio id="alarms"></audio>
   </div>
   <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src='jquery.wikiblurb.js'></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>
+  <iframe id="textArea" align="right" width="700px" height="600px" style="background-color:black; color:Lime" frameBorder="0"></iframe>
   <iframe id="frame01" align="center" width="500px" height="400px" frameBorder="0"></iframe>
-  <iframe id="musicplayer" align="center" width="900px" height="500px" frameBorder="0" src="victor_musicplayer.html"></iframe>
+ <!-- <iframe id="musicplayer" align="center" width="900px" height="500px" src="victor_musicplayer.html"></iframe>
+-->
+  
 <script>
+  window.onload = function(){
   var voiceType = "baxton";
   var textBox = document.getElementById("DialogueInput");
   function playRandomLine(sounds, voice){
@@ -86,9 +92,35 @@
       "goodbye": ["Goodbye.", "Do come back soon.", "Farewell.", "Ta ta."],
       "farewell": ["Goodbye.", "Do come back soon.", "Farewell.", "Ta ta."],
       "toggle conversation mode": ["Conversation mode toggled."],
+      "search wikipedia": ["Please tell me what you wish to search for."],
+      "stop": ["As you wish.", "Very well."],
     }
     var dialogueIgnore = ["toggle conversation mode"];
-  
+ 
+var isSearchingWikipedia = false;
+function getWikipediaSummary(searchQuery){
+searchQuery = searchQuery.replace(" ", "_")
+var title = searchQuery;
+//Get Leading paragraphs (section 0)
+$.ajax({
+        type: "GET",
+        url: "//en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&explaintext=&redirects=1&titles=" + title + "&callback=?",
+        async: false,
+        dataType: "jsonp",
+        success: function (data, textStatus, jqXHR) {
+            console.log(data);
+            for(var key in data["query"]["pages"]){
+              var pText = data["query"]["pages"][key]["extract"];
+              break
+            }
+            document.getElementById("textArea").src = "https://en.wikipedia.org/wiki/" + title;
+            playRandomTTS(["Accessing wikipedia..." + pText, "My wikipedia query returns the following..." + pText, "Accessing..." + pText]);
+            //document.getElementById("textArea").innerHTML = pText;
+        },
+        error: function (errorMessage) {
+        }
+    });
+    }
   
   
   
@@ -100,7 +132,6 @@
     if(selfDestructConfirmed != true){
    
     icon.src = "images/faces/house_alert.png";
-
     text01.innerHTML = "THE SELF DESTRUCT FEATURE WILL WIPE ALL USER DATA USED ON THIS PAGE.  PLEASE CONFIRM BY ISSUING THE COMMAND 'confirm self destruct'.  IF YOU WISH TO CANCEL, PLEASE TYPE 'cancel self destruct'."
     text01.style.color = "Red";
     }
@@ -112,7 +143,6 @@
       alarmAudio.play();
       startTimerSD(2);
     }
-
   }
   function cancelSelfDestruct(){
     var icon = document.getElementById("icon");
@@ -183,9 +213,9 @@
         'confirm self destruct': checkInput,
         'play checkers': playCheckers,
         'thank you': checkInput,
-        'toggle conversation mode': checkInput
+        'toggle conversation mode': checkInput,
+        'search wikipedia': checkInput
 };
-
      // Add our commands to annyang
     annyang.addCommands(commands);
     console.log(commands);
@@ -208,7 +238,6 @@
     });
     annyang.trigger("hello");
   }
-
   var startTimer = function(time){
     timerTime = time * 60;
     timerInstance = setInterval(countTimer, 1000);
@@ -262,11 +291,9 @@
   var checkInput = function(value){
     var val = value;
     val = val.toLowerCase();
-    console.log(val);
     try{
     console.log(val);
     var linearray;
-
     var functions = {
       "enable voice": enableVoice,
       "disable voice": disableVoice,
@@ -314,6 +341,12 @@
       "toggle conversation mode": function(){
         toggleConversationMode();
       },
+"search wikipedia": function(){
+        isSearchingWikipedia = true;
+      },
+      "stop": function(){
+        responsiveVoice.cancel();
+      },
       "change voice to baxton": changeVoiceBaxton,
       "change voice to wilson": changeVoiceWilson,
     }
@@ -331,7 +364,12 @@
         playRandomTTS(linearray, voiceType);
     }
     else{
-      if(conversationModeActive){
+     
+if(isSearchingWikipedia){
+    getWikipediaSummary(val);
+    isSearchingWikipedia = false;
+}
+else if(conversationModeActive){
         conversationpatterns(val);
     }
       else{
@@ -351,21 +389,19 @@
    }
   }
   
-
-
   
   textBox.onkeydown = function(e){
    if(e.keyCode == 13){
      if(isSearchingYT == true){
         go_get();
-     }else{
+     }
+else{
      checkInput(textBox.value);
      }
      }
    }
   textBox.addEventListener("submit", checkInput);
   //----Data Declarations----
-
 var convpatterns = new Array (
   new Array ("^I (?:wish |would like )(?:I could |I was able to |to be able to )(.*)\.","Perhaps someday you can $1?."),
   new Array ("I need (.*)\." , "If I could want $1 I would.  Perhaps someday, with enough programmming, I will." , "Have you ever considered the fact that you may not need $1 after all?"),
@@ -406,15 +442,10 @@ var convpatterns = new Array (
   new Array ("(.*) your fav(o|ou)rite(.*?)[\?]","I really don't have a favorite.","I have so many favorites it's hard to choose one."),
   new Array ("(.*?)[\?]","Hmm, not sure I know..", "That's an interesting question...",  "Gosh, I'm not sure I can answer that...","Why do you ask that?","Please consider whether you can answer your own question.",	"Perhaps the answer lies within yourself?","Why don't you tell me?", "If you knew that in one year you would die suddenly, would you change anything about the way you are living now?"),
   new Array ("(.*)","Do you have any hobbies?", "I see,  please continue...", "What exactly are we talking about?", "Can you go over that again please..", "Um, i get the feeling this conversation is not going anywhere..",  "oh yeah?",  "hmm, is that so..", "Please tell me more.","Let's change focus a bit... Tell me about your family.","Can you elaborate on that?","I see.","Very interesting.", "I see.  And what does that tell you?","How does that make you feel?","How do you feel when you say that?","If you had to have one piece of music softly playing in your mind for the rest of your life, what would you want it to be?","What room of your home do you spend the most time in?","If you could go back in time and become friends with one famous person, whom would you chose?","Which of the seven dwarfs personifies you best – Dopey, Sneezy, Sleepy, Bashful, Grumpy, Happy, or Doc?","Which animal would you leave out of the ark?"));
-
-
 uinput = ""
 soutput = ""
 dialog = ""
-
 //-----The Core Code------
-
-
 //-------
  
  function mainroutine() {
@@ -423,9 +454,7 @@ dialog = ""
   conversationpatterns()
  dialog = dialog  +  '\r' + "\n";
   updatescreen()
-
 }
-
 //-------
 function conversationpatterns(uinput) {
    for (i=0; i < convpatterns.length; i++) {
@@ -443,24 +472,15 @@ function conversationpatterns(uinput) {
    }
 }
     
-
 //-------
-
-
 //-------
 function initialCap(field) {
    field = field.substr(0, 1).toLowerCase() + field.substr(1);
    return field
 }
-
-
 //----Supplemental Code To Test System---
-
-
-
 //------
 function runtest(){
-
 var testdata = new Array (
   new Array ("Hello."),
   new Array ("I can't understand you."),
@@ -468,18 +488,13 @@ var testdata = new Array (
   new Array ("Are you serious?"),
   new Array ("Because they can."),
   new Array ("I'm really sorry about that.")
-
 );
-
-
           for (train=0; train < testdata.length; train++) {
              document.mainscreen.BasicTextArea4.value = testdata[train];
              mainroutine()
-
              }
-
 }
-
+  }
 </script>
 </body>
 </html>
