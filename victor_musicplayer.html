@@ -9,33 +9,26 @@
 <script type="text/javascript" src="jPlayer-2.9.2/dist/jplayer/jquery.jplayer.js"></script>
 <script type="text/javascript">
 //<![CDATA[
-
 $(document).ready(function(){
-
 	// Local copy of jQuery selectors, for performance.
 	var	my_jPlayer = $("#jquery_jplayer"),
 		my_trackName = $("#jp_container .track-name"),
 		my_playState = $("#jp_container .play-state"),
 		my_extraPlayInfo = $("#jp_container .extra-play-info");
-
 	// Some options
 	var	opt_play_first = false, // If true, will attempt to auto-play the default track on page loads. No effect on mobile devices, like iOS.
 		opt_auto_play = true, // If true, when a track is selected, it will auto-play.
 		opt_text_playing = "Now playing", // Text when playing
 		opt_text_selected = "Track selected"; // Text when not playing
-
 	// A flag to capture the first track
 	var first_track = true;
-
 	// Change the time format
 	$.jPlayer.timeFormat.padMin = false;
 	$.jPlayer.timeFormat.padSec = false;
 	$.jPlayer.timeFormat.sepMin = " min ";
 	$.jPlayer.timeFormat.sepSec = " sec";
-
 	// Initialize the play state text
 	my_playState.text(opt_text_selected);
-
 	// Instance jPlayer
 	my_jPlayer.jPlayer({
 		ready: function () {
@@ -58,7 +51,6 @@ $(document).ready(function(){
 		supplied: "mp3",
 		wmode: "window"
 	});
-
 	// Create click handlers for the different tracks
 	$("#jp_container .track").click(function(e) {
 		my_trackName.text($(this).text());
@@ -72,24 +64,20 @@ $(document).ready(function(){
 		$(this).blur();
 		return false;
 	});
-
 });
 //]]>
 </script>
 
 <style>
 <!--
-
 .demo-container {
 	border: 1px solid #66ff99;
 	padding:0 20px;
 	font-family: "Myriad Pro Regular","Trebuchet MS";
 }
-
 .demo-container a, .demo-container a:link, .demo-container a:visited, .demo-container a:hover, .demo-container a:focus, .demo-container a:active {
 	color: #66ff99;
 }
-
 .demo-container ul {
 	list-style-type:none;
 	padding:0;
@@ -97,48 +85,40 @@ $(document).ready(function(){
 	width:100%;
 	overflow:hidden;
 }
-
 .demo-container ul span {
 	color: #A0A600;
 }
-
 .demo-container li {
 	float:left;
 	margin-right:1em;
 }
-
 .demo-container p span.track-name {
 	color: #CC0090;
 }
-
 -->
 </style>
-
 </head>
 <body style="background-color:black;">
-
 		<div id="jquery_jplayer"></div>
-
 		<!-- Using the cssSelectorAncestor option with the default cssSelector class names to enable control association of standard functions using built in features -->
-
 		<div id="jp_container" class="demo-container" style="color:#66ff99">
 			<ul>
 				<li><span>Select a track : </span></li>
-				<li><a href="73.38.235.13:7875/theinstitute.ogg" class="track track-default">Classical Radio</a></li>
+				<li><a href="http://73.38.235.13:7875/theinstitute.ogg" class="track track-default">Classical Radio</a></li>
 				<li> | </li>
-				<li><a href="10.0.0.182:7875/theinstitute.ogg" class="track track-default">Classical Radio LAN</a></li>
+				<li><a href="http://10.0.0.182:7875/theinstitute.ogg" class="track track-default">Classical Radio LAN</a></li>
 				<li> | </li>
-				<li><a href="73.38.235.13:7875/classical2.ogg" class="track track-default">Crowley's Classical</a></li>
+				<li><a href="http://73.38.235.13:7875/classical2.ogg" class="track track-default">Crowley's Classical</a></li>
 				<li> | </li>
-				<li><a href="10.0.0.182:7875/classical2.ogg" class="track track-default">Crowley's Classical LAN</a></li>
+				<li><a href="http://10.0.0.182:7875/classical2.ogg" class="track track-default">Crowley's Classical LAN</a></li>
 				<li> | </li>
-				<li><a href="73.38.235.13:7875/mysterious_broadcast.ogg" class="track track-default">Mysterious Broadcast</a></li>
+				<li><a href="http://73.38.235.13:7875/mysterious_broadcast.ogg" class="track track-default">Mysterious Broadcast</a></li>
 				<li> | </li>
-				<li><a href="10.0.0.182:7875/mysterious_broadcast.ogg" class="track track-default">Mysterious Broadcast LAN</a></li>
+				<li><a href="http://10.0.0.182:7875/mysterious_broadcast.ogg" class="track track-default">Mysterious Broadcast LAN</a></li>
 				<li> | </li>
-				<li><a href="73.38.235.13:7875/skyrim.ogg" class="track track-default">Atmospheres</a></li>
+				<li><a href="http://73.38.235.13:7875/skyrim.ogg" class="track track-default">Atmospheres</a></li>
 				<li> | </li>
-				<li><a href="10.0.0.182:7875/skyrim.ogg" class="track track-default">Atmospheres LAN</a></li>
+				<li><a href="http://10.0.0.182:7875/skyrim.ogg" class="track track-default">Atmospheres LAN</a></li>
 				<li> | </li>
 				
 			</ul>
@@ -162,7 +142,5 @@ $(document).ready(function(){
 				<li><a class="jp-volume-max" href="#">Max</a></li>
 			</ul>
 		</div>
-
 </body>
-
 </html>
