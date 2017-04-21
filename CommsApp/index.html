@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CommsApp</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    <script src="https://simplewebrtc.com/latest-v2.js"></script>
+  </head>
+  <body>
+    <div id="leftInfo">
+    </div>
+    <h1 id="userNumber">0</h1>
+    <div id="user">
+      <video id="userCamera"></video>
+    </div>
+    <div id="otherCamerasWrapper"></div>
+  </body>
+  <script>
+    var userNumber = document.getElementById("userNumber");
+    var userCamera = document.getElementById("userCamera");
+    var otherCameras = document.getElementById("otherCamerasWrapper");
+
+    setInterval(function() {
+      var others = otherCameras.childNodes;
+      userNumber.textContent = others.length.toString();
+    }, 100);
+
+    var webrtc = new SimpleWebRTC({
+      localVideoEl: userCamera,
+      remoteVideosEl: otherCameras,
+      autoRequestMedia: true
+    });
+
+    webrtc.on('readyToCall', function () {
+      webrtc.joinRoom('testing');
+    });
+  </script>
+</html>
