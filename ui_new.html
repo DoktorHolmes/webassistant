@@ -1,0 +1,508 @@
+<html>
+<head>
+  
+  <title="Smith - Virtual Assistant">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    </head>
+
+<body>
+<div id="mainDiv" align="center">
+  <div id="timer" align="center" style="color:lime"></div>
+<image id="icon" src="images/faces/house.png"><br>
+  <input type="text" id="DialogueInput"></input>
+  <audio id="speechMain"></audio>
+  <audio id="alarms"></audio>
+  </div>
+  <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src='jquery.wikiblurb.js'></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>
+  <iframe id="textArea" align="right" width="700px" height="600px" style="background-color:black; color:Lime" frameBorder="0"></iframe>
+  <iframe id="frame01" align="center" width="500px" height="400px" frameBorder="0"></iframe>
+ <!-- <iframe id="musicplayer" align="center" width="900px" height="500px" src="victor_musicplayer.html"></iframe>
+-->
+  
+<script>
+  window.onload = function(){
+  var voiceType = "baxton";
+  var textBox = document.getElementById("DialogueInput");
+  function playRandomLine(sounds, voice){
+    var dialogueline = sounds[Math.floor(Math.random() * sounds.length)];
+    var audio = document.getElementById("speechMain");
+    audio.src = ("voicelines/" + voice + "/" + dialogueline);
+    audio.play();
+  }
+  function playRandomTTS(arr){
+    responsiveVoice.speak(arr[Math.floor(Math.random() * arr.length)], "UK English Male");
+  }
+  
+  
+  
+  
+      var dialogue = {
+      "hello": ["greeting01.mp3", "greeting02.mp3", "greeting03.mp3"],
+      "hey": ["greeting01.mp3", "greeting02.mp3", "greeting03.mp3"],
+      "hi": ["greeting01.mp3", "greeting02.mp3", "greeting03.mp3"],
+      "tell me a joke": ["joke01.mp3", "joke02.mp3", "joke03.mp3", "joke04.mp3", "joke05.mp3", "joke06.mp3"],
+      "enable voice": ["hearme.mp3"],
+      "disable voice": ["okay.mp3"],
+      "change voice to baxton": ["changevoice.mp3"],
+      "change voice to wilson": ["changevoice.mp3"],
+      "goodbye": ["goodbye.mp3", "goodbye02.mp3"],
+      "bye": ["goodbye.mp3", "goodbye02.mp3"],
+      "set a timer for 1 minute": ["okay.mp3"],
+      "set a timer for 5 minutes": ["okay.mp3"],
+      "set a timer for 10 minutes": ["okay.mp3"],
+      "set a timer for 15 minutes": ["okay.mp3"],
+      "set a timer for 30 minutes": ["okay.mp3"],
+      "set a timer for 45 minutes": ["okay.mp3"],
+      "set a timer for 50 minutes": ["okay.mp3"],
+      "set a timer for 1 hour": ["okay.mp3"],
+      "search youtube": ["okay.mp3"],
+      "initiate self destruct": ["selfdestructconfirmed.mp3"],
+      "confirm self destruct": ["selfdestructconfirmed.mp3"],
+      "unknown": ["unknown01.mp3", "unknown02.mp3"]
+        }
+    var dialogueTTS = {
+      "hello": ["Hello, sir.  Systems operating at 100% efficiency.  As per usual.", "Hello, sir.  Systems operating at 100% efficiency.", "Good day, sir.  A pleasure to see you again."],
+      "hey": ["Hello, sir.  Systems operating at 100% efficiency.  As per usual.", "Hello, sir.  Systems operating at 100% efficiency.", "Good day, sir.  A pleasure to see you again."],
+      "hi": ["Hello, sir.  Systems operating at 100% efficiency.  As per usual.", "Hello, sir.  Systems operating at 100% efficiency.", "Good day, sir.  A pleasure to see you again."],
+      "how are you": ["Quite well, thank you."],
+      "unknown": ["I don't understand.", "I beg your pardon?"],
+      "enable voice": ["I'm all ears."],
+      "disable voice": ["Voice disabled."],
+      "set a timer for 1 minute": ["Very good.  Timer set for one minute."],
+      "set a timer for 5 minutes": ["Very good.  Timer set for five minutes."],
+      "set a timer for 10 minutes": ["Very good.  Timer set for ten minutes."],
+      "set a timer for 15 minutes": ["Very good.  Timer set for fifteen minutes."],
+      "set a timer for 30 minutes": ["Very good.  Timer set for thirty minutes."],
+      "set a timer for 45 minutes": ["Very good.  Timer set for forty five minutes."],
+      "set a timer for 50 minutes": ["Very good.  Timer set for fifty minutes."],
+      "set a timer for 1 hour": ["Very good.  Timer set for one hour."],
+      "search youtube": ["What would you like to search for?"],
+      "change voice to baxton": ["Please see this url, doctor holmes dot github dot i o slash web assistant slash voice, to use the pre-recorded voicelines."],
+      "initiate self destruct": ["As you wish.  I require secondary confirmation.  Please say the command. confirm self destruct. to continue with the self destruct sequence."],
+      "confirm self destruct": ["Very well.  Might I say it was an honor to serve you."],
+      "cancel self destruct": ["Might I say I am relieved that we did not have to resort to that.  Thank you."],
+      "tell me a joke": ["Arial, papyrus, and comic sans walk into a bar, and the bartender says.  Hey!  We don't serve your type in here.", "If four out of five people suffer from radiation poisoning, does the fifth guy enjoy it?", "Two fish swim into a concrete wall.  One turns to the other and says.  Damn.", "A neutron walks into a bar and asks, how much for a drink.  The bartender replies for you, no charge."],
+      "play checkers": ["I'll have you know I'm quite skilled with games of logic.  Perhaps you are better!  We shall see.", "I'd love a game.  Shall we?", "Very good!  I am setting up the game now."],
+      "thank you": ["You are most welcome.", "Of course.", "Proud to serve!"],
+      "thanks": ["You are most welcome.", "Of course.", "Proud to serve!"],
+      "bye": ["Goodbye.", "Do come back soon.", "Farewell.", "Ta ta."],
+      "goodbye": ["Goodbye.", "Do come back soon.", "Farewell.", "Ta ta."],
+      "farewell": ["Goodbye.", "Do come back soon.", "Farewell.", "Ta ta."],
+      "toggle conversation mode": ["Conversation mode toggled."],
+      "search wikipedia": ["Please tell me what you wish to search for."],
+      "stop": ["As you wish.", "Very well."],
+    }
+    var dialogueIgnore = ["toggle conversation mode"];
+ 
+var isSearchingWikipedia = false;
+function getWikipediaSummary(searchQuery){
+searchQuery = searchQuery.replace(" ", "_")
+var title = searchQuery;
+//Get Leading paragraphs (section 0)
+$.ajax({
+        type: "GET",
+        url: "//en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&explaintext=&redirects=1&titles=" + title + "&callback=?",
+        async: false,
+        dataType: "jsonp",
+        success: function (data, textStatus, jqXHR) {
+            console.log(data);
+            for(var key in data["query"]["pages"]){
+              var pText = data["query"]["pages"][key]["extract"];
+              break
+            }
+            document.getElementById("textArea").src = "https://en.wikipedia.org/wiki/" + title;
+            playRandomTTS(["Accessing wikipedia..." + pText, "My wikipedia query returns the following..." + pText, "Accessing..." + pText]);
+            //document.getElementById("textArea").innerHTML = pText;
+        },
+        error: function (errorMessage) {
+        }
+    });
+    }
+  
+  
+  
+  var timerInstance;
+  var selfDestructConfirmed = false;
+  function selfDestruct(){
+    var icon = document.getElementById("icon");
+    var text01 = document.getElementById("timer");
+    if(selfDestructConfirmed != true){
+   
+    icon.src = "images/faces/house_alert.png";
+    text01.innerHTML = "THE SELF DESTRUCT FEATURE WILL WIPE ALL USER DATA USED ON THIS PAGE.  PLEASE CONFIRM BY ISSUING THE COMMAND 'confirm self destruct'.  IF YOU WISH TO CANCEL, PLEASE TYPE 'cancel self destruct'."
+    text01.style.color = "Red";
+    }
+    else{
+      var alarmAudio = document.getElementById("alarms");
+      alarmAudio.src = "sound/alarm01.wav";
+      alarmAudio.volume = 0.4;
+      alarmAudio.addEventListener("ended", alarmAudio.play);
+      alarmAudio.play();
+      startTimerSD(2);
+    }
+  }
+  function cancelSelfDestruct(){
+    var icon = document.getElementById("icon");
+    var text01 = document.getElementById("timer");
+    var alarmAudio = document.getElementById("alarms");
+    alarmAudio.pause();
+    icon.src = "images/faces/house.png";
+    text01.innerHTML = ""
+    selfDestructConfirmed = false;
+    text01.style.color = "Lime";
+    clearInterval(timerInstance)
+  }
+  var conversationModeActive = true;
+  function playCheckers(){
+    var iframe01 = document.getElementById("frame01");
+    iframe01.src = "checkers/index.html";
+    playRandomTTS(["I'll have you know I'm quite skilled with games of logic.  Perhaps you are better!  We shall see.", "I'd love a game.  Shall we?", "Very good!  I am setting up the game now."]);
+  }
+  var isSearchingYT = false;
+  var go_get = function(){
+    var base_url = 'https://www.youtube.com/embed?listType=search&list=';
+    var search_field = document.getElementById("DialogueInput").value;
+    var target_url = base_url + search_field;
+    var ifr = document.getElementById('frame01');
+    ifr.src = target_url;
+    isSearchingYT = false;
+}
+  var changeVoiceType = function(voiceName){
+      voiceType = voiceName;
+   }
+    var changeVoiceBaxton = function(){
+      voiceType = "baxton";
+   }
+    
+    var changeVoiceWilson = function(){
+      voiceType = "wilson";
+   }
+ var isListening = false;
+ var timerDiv = document.getElementById("timer");
+ var timerTime = 0;
+  var voiceEnabled = false;
+  var enableVoice = function(){
+     console.log("Initializing speech recognition.");
+      var commands = {
+          'smith': function(){
+            isListening = true;
+          },
+          'hello': checkInput,
+          'hey': checkInput,  
+         'hi': checkInput,
+        'tell me a joke': checkInput,
+        'disable voice': checkInput,
+        'goodbye': checkInput,
+        'bye': checkInput,
+        'set a timer for 1 minute': checkInput,
+        'set a timer for 5 minutes': checkInput,
+        'set a timer for 10 minutes': checkInput,
+        'set a timer for 15 minutes': checkInput,
+        'set a timer for 30 minutes': checkInput,
+        'set a timer for 45 minutes': checkInput,
+        'set a timer for 50 minutes': checkInput,
+        'set a timer for 1 hour': checkInput,
+        'change voice to baxton': checkInput,
+        'change voice to wilson': checkInput,
+        'search youtube': go_get,
+        'initiate self destruct': checkInput,
+        'cancel self destruct': checkInput,
+        'confirm self destruct': checkInput,
+        'play checkers': playCheckers,
+        'thank you': checkInput,
+        'toggle conversation mode': checkInput,
+        'search wikipedia': checkInput
+};
+     // Add our commands to annyang
+    annyang.addCommands(commands);
+    console.log(commands);
+    annyang.init(commands);
+    annyang.debug();
+    // Start listening. You can call this here, or attach this call to an event, button, etc.
+    annyang.start();
+    annyang.addCallback('result', function(userSaid, commandText, phrases) {
+    if (userSaid[0].toLowerCase() == "smith"){
+      console.log(userSaid[0]);
+      isListening = true;
+    }
+    else if (isListening == true){
+      checkInput(userSaid[0]);
+      console.log(userSaid[0]);
+      isListening = false;
+      
+    }
+    
+    });
+    annyang.trigger("hello");
+  }
+  var startTimer = function(time){
+    timerTime = time * 60;
+    timerInstance = setInterval(countTimer, 1000);
+  }
+  var countTimer = function(){
+    if(timerTime > 0){
+      timerTime = timerTime - 1;
+      timerDiv.innerHTML = timerTime.toString();
+      var audioTick = new Audio("sound/tick1.wav");
+      //audioTick.play();
+    }
+    else{
+     var audioTimer = new Audio("sound/timerEnd.mp3");
+     audioTimer.play();
+     clearInterval(timerInstance);
+    }
+  }
+  var startTimerSD = function(time){
+    timerTime = time * 60;
+    timerInstance = setInterval(countTimerSD, 1000);
+  }
+  var countTimerSD = function(){
+    if(timerTime == 10){
+      playRandomLine(["goodbyeSD.mp3"], voiceType);
+    }
+    if(timerTime > 0){
+      timerTime = timerTime - 1;
+      timerDiv.innerHTML = timerTime.toString();
+      var audioTick = new Audio("sound/tick1.wav");
+      //audioTick.play();
+    }
+    else{
+     var audioTimer = new Audio("sound/timerEnd.mp3");
+     audioTimer.play();
+     clearInterval(timerInstance);
+     Window.close();
+    }
+  }
+  var disableVoice = function(){
+    annyang.abort();
+  }
+  var toggleConversationMode = function(){
+    conversationModeActive = !conversationModeActive;
+    if(conversationModeActive){
+      playRandomTTS(["Conversation mode on."]);
+    }
+    else{
+      playRandomTTS(["Conversation mode off."]);
+    }
+  }
+  var checkInput = function(value){
+    var val = value;
+    val = val.toLowerCase();
+    try{
+    console.log(val);
+    var linearray;
+    var functions = {
+      "enable voice": enableVoice,
+      "disable voice": disableVoice,
+      "set a timer for 1 minute": function(){
+        startTimer(1);
+      },
+      "set a timer for 5 minutes": function(){
+        startTimer(5);
+      },
+      "set a timer for 10 minutes": function(){
+        startTimer(10);
+      },
+      "set a timer for 15 minutes": function(){
+        startTimer(15);
+      },
+      "set a timer for 30 minutes": function(){
+        startTimer(30);
+      },
+      "set a timer for 45 minutes": function(){
+        startTimer(45);
+      },
+      "set a timer for 50 minutes": function(){
+        startTimer(50);
+      },
+      "set a timer for 1 hour": function(){
+        startTimer(60);
+      },
+      "search youtube": function(){
+        isSearchingYT = true;
+      },
+      "initiate self destruct": function(){
+        selfDestruct();
+        selfDestructConfirmed = true;
+        
+      },
+      "confirm self destruct": function(){
+        selfDestruct();  
+      },
+      "play checkers": function(){
+        playCheckers();  
+      },
+      "cancel self destruct": function(){
+        cancelSelfDestruct();
+      },
+      "toggle conversation mode": function(){
+        toggleConversationMode();
+      },
+"search wikipedia": function(){
+        isSearchingWikipedia = true;
+      },
+      "stop": function(){
+        responsiveVoice.cancel();
+      },
+      "change voice to baxton": changeVoiceBaxton,
+      "change voice to wilson": changeVoiceWilson,
+    }
+    if([val]){
+      var fname = functions[val];
+      console.log(fname);
+      if(typeof fname === 'function') {
+      fname();
+    }
+    }
+    if(dialogueTTS[val]){
+        linearray = dialogueTTS[val];
+        
+        console.log(linearray);
+        playRandomTTS(linearray, voiceType);
+    }
+    else{
+     
+if(isSearchingWikipedia){
+    getWikipediaSummary(val);
+    isSearchingWikipedia = false;
+}
+else if(conversationModeActive){
+        conversationpatterns(val);
+    }
+      else{
+        linearray = dialogueTTS["unknown"];
+        console.log(linearray);
+        playRandomTTS(linearray, voiceType);
+        
+      }
+    
+    }
+   textBox.value = "";
+    }
+    
+    catch(e){
+       console.log(e);
+       playRandomTTS(["My apologies, but there has been an error.  The error code reads as follows. " + e]);
+   }
+  }
+  
+  
+  textBox.onkeydown = function(e){
+   if(e.keyCode == 13){
+     if(isSearchingYT == true){
+        go_get();
+     }
+else{
+     checkInput(textBox.value);
+     }
+     }
+   }
+  textBox.addEventListener("submit", checkInput);
+  //----Data Declarations----
+var convpatterns = new Array (
+  new Array ("^I (?:wish |would like )(?:I could |I was able to |to be able to )(.*)\.","Perhaps someday you can $1?."),
+  new Array ("I need (.*)\." , "If I could want $1 I would.  Perhaps someday, with enough programmming, I will." , "Have you ever considered the fact that you may not need $1 after all?"),
+  new Array ("I'd really like to (.*)\.","As would I.","I hope you get to $1 someday."),
+  new Array ("Why don't you (.*?)[\?]" , "Please file all complaints with my creator or the current owner of my github page.","Perhaps someday I will $1.","Why don't you ever $1?, hmmm?"),
+  new Array ("Why can't I (.*?)[\?]" , "Do you think you should be able to $1?","If you could $1, what would you do?",	"I don't know -- why can't you $1?","Have you really tried?"),
+  new Array ("I can't (.*) you\.","How do you know you can't $1 me?","Perhaps you could $1 me if you tried.",	"What would it take for you to $1 me?"),
+  new Array ("I can't (.*)\.","How do you know you can't $1?","Perhaps you could $1 if you tried.",	"What would it take for you to $1?"),
+  new Array ("Are you (.*?)[\?]","Why does it matter whether I am $1?","Would you prefer it if I were not $1?","Perhaps you believe I am $1.","I may be $1 -- what do you think?"),
+  new Array ("What (.*?)[\?]",	"Why do you ask?","How would an answer to that help you?","What do you think?"),
+  new Array ("How (.*?)[\?]","How do you suppose?","Perhaps you can answer your own question.","What is it you're really asking?"),
+  new Array ("Because (.*)\.","Is that the real reason?", "What other reasons come to mind?","Does that reason apply to anything else?","If $1, what else must be true?"),
+  new Array ("(.*) sorry (.*)\.",	"There are many times when no apology is needed.","What feelings do you have when you apologize?"),
+  new Array ("I think (.*)\.","Do you doubt $1?","Do you really think so?","But you're not sure $1?"),
+  new Array ("(.*) friend(.*)\.",	"Tell me more about your friends.","When you think of a friend, what comes to mind?","Why don't you tell me about a childhood friend?"),
+  new Array ("Yes\.","You seem quite sure.","OK, but can you elaborate a bit?"),
+  new Array ("(.*) computer(.*)\.","Are you really talking about me?","Does it seem strange to talk to a computer?","How do computers make you feel?","Do you feel threatened by computers?"),
+  new Array ("Is it (.*?)[\?]","Do you think it is $1?","Perhaps it's $1 -- what do you think?","If it were $1, what would you do?","It could well be that $1."),
+  new Array ("It is (.*)\.","You seem very certain.","If I told you that it probably isn't $1, what would you feel?"),
+  new Array ("Can you (.*) (me |me$).*\?", "Of course I can $1 you.", "Why wouldn't I be able to $1 you?"),
+  new Array ("Can you (.*?)[\?]","What makes you think I can't $1?","If I could $1, then what?","Why do you ask if I can $1?"),
+  new Array ("Can I (.*?)[\?]","Perhaps you don't want to $1.","Do you want to be able to $1?","If you could $1, would you?"),
+  new Array ("You are (.*)\.","Why do you think I am $1?","Does it please you to think that I'm $1?","Perhaps you would like me to be $1.","Perhaps you're really talking about yourself?"),
+  new Array ("You're (.*)\.","Why do you say I am $1?","Why do you think I am $1?",	"Are we talking about you, or me?"),
+  new Array ("I don't (.*)\.","Don't you really $1?","Why don't you $1?","Do you want to $1?"),
+  new Array ("I feel (.*)\.","Good, tell me more about these feelings.","Do you often feel $1?","When do you usually feel $1?","When you feel $1, what do you do?"),
+  new Array ("I have (.*)\.","Why do you tell me that you've $1?","Have you really $1?","Now that you have $1, what will you do next?"),
+  new Array ("I would (.*)\.","Could you explain why you would $1?","Why would you $1?","Who else knows that you would $1?"),
+  new Array ("Is there (.*?)[\?]", "Do you think there is $1?","It's likely that there is $1.", "Would you like there to be $1?"),
+  new Array ("My (.*)\.", "I see, your $1.","Why do you say that your $1?",	"When your $1, how do you feel?"),
+  new Array ("^You (.*)\.", "We should be discussing you, not me.","Why do you say that about me?","Why do you care whether I $1?"),
+  new Array ("Why (.*)\?", "Why don't you tell me the reason why $1?","Why do you think $1?" ),
+  new Array ("I want (.*)\.", "What would it mean to you if you got $1?","Why do you want $1?","What would you do if you got $1?","If you got $1, then what would you do?"),
+  new Array (".*( the highway| the road).*","The highway is for gamblers, you better use your sense."),
+  new Array ("(.*) mother(.*)\.",	"Tell me more about your mother.","What was your relationship with your mother like?",	"How do you feel about your mother?","How does this relate to your feelings today?","Good family relations are important."),
+  new Array ("(.*) father(.*)\.","Tell me more about your father.", "How did your father make you feel?","How do you feel about your father?","Does your relationship with your father relate to your feelings today?",	"Do you have trouble showing affection with your family?"),
+  new Array ("(.*) child(.*)\.","Did you have close friends as a child?",	"What is your favorite childhood memory?","Do you remember any dreams or nightmares from childhood?","Did the other children sometimes tease you?","How do you think your childhood experiences relate to your feelings today?"),
+  new Array ("(.*) your fav(o|ou)rite(.*?)[\?]","I really don't have a favorite.","I have so many favorites it's hard to choose one."),
+  new Array ("(.*?)[\?]","Hmm, not sure I know..", "That's an interesting question...",  "Gosh, I'm not sure I can answer that...","Why do you ask that?","Please consider whether you can answer your own question.",	"Perhaps the answer lies within yourself?","Why don't you tell me?", "If you knew that in one year you would die suddenly, would you change anything about the way you are living now?"),
+  new Array ("(.*)","Do you have any hobbies?", "I see,  please continue...", "What exactly are we talking about?", "Can you go over that again please..", "Um, i get the feeling this conversation is not going anywhere..",  "oh yeah?",  "hmm, is that so..", "Please tell me more.","Let's change focus a bit... Tell me about your family.","Can you elaborate on that?","I see.","Very interesting.", "I see.  And what does that tell you?","How does that make you feel?","How do you feel when you say that?","If you had to have one piece of music softly playing in your mind for the rest of your life, what would you want it to be?","What room of your home do you spend the most time in?","If you could go back in time and become friends with one famous person, whom would you chose?","Which of the seven dwarfs personifies you best – Dopey, Sneezy, Sleepy, Bashful, Grumpy, Happy, or Doc?","Which animal would you leave out of the ark?"));
+uinput = ""
+soutput = ""
+dialog = ""
+//-----The Core Code------
+//-------
+ 
+ function mainroutine() {
+ uinput = document.mainscreen.BasicTextArea4.value;
+ dialog = dialog + "User: " + uinput +  '\r' + "\n";
+  conversationpatterns()
+ dialog = dialog  +  '\r' + "\n";
+  updatescreen()
+}
+//-------
+function conversationpatterns(uinput) {
+   for (i=0; i < convpatterns.length; i++) {
+    re = new RegExp (convpatterns[i][0], "i");
+    if (re.test(uinput)) {
+      len = convpatterns[i].length - 1;
+      index = Math.ceil( len * Math.random());
+      reply = convpatterns[i][index];
+      soutput = uinput.replace(re, reply);
+      if (!(uinput in dialogueTTS)){
+      responsiveVoice.speak(soutput, "UK English Male");
+      }
+      break;
+    }
+   }
+}
+    
+//-------
+//-------
+function initialCap(field) {
+   field = field.substr(0, 1).toLowerCase() + field.substr(1);
+   return field
+}
+//----Supplemental Code To Test System---
+//------
+function runtest(){
+var testdata = new Array (
+  new Array ("Hello."),
+  new Array ("I can't understand you."),
+  new Array ("I'm going to New York tomorrow."),
+  new Array ("Are you serious?"),
+  new Array ("Because they can."),
+  new Array ("I'm really sorry about that.")
+);
+          for (train=0; train < testdata.length; train++) {
+             document.mainscreen.BasicTextArea4.value = testdata[train];
+             mainroutine()
+             }
+}
+  }
+navigator.serviceWorker.register('sw.js');
+Notification.requestPermission(function(result) {
+  if (result === 'granted') {
+    navigator.serviceWorker.ready.then(function(registration) {
+      playRandomTTS(["Thank you for allowing me to use notifications."])
+    });
+  }
+});
+</script>
+</body>
+</html>
