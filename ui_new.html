@@ -8,7 +8,17 @@
 <body>
 <div id="mainDiv" align="center">
   <div id="timer" align="center" style="color:lime"></div>
-<image id="icon" src="images/faces/house.png"><br>
+  <div class="loader">
+  <div class="part">
+    <div class="part">
+      <div class="part">
+        <div class="part">
+          <div class="part"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
   <input type="text" id="DialogueInput"></input>
   <audio id="speechMain"></audio>
   <audio id="alarms"></audio>
@@ -131,7 +141,7 @@ $.ajax({
     var text01 = document.getElementById("timer");
     if(selfDestructConfirmed != true){
    
-    icon.src = "images/faces/house_alert.png";
+    //icon.src = "images/faces/house_alert.png";
     text01.innerHTML = "THE SELF DESTRUCT FEATURE WILL WIPE ALL USER DATA USED ON THIS PAGE.  PLEASE CONFIRM BY ISSUING THE COMMAND 'confirm self destruct'.  IF YOU WISH TO CANCEL, PLEASE TYPE 'cancel self destruct'."
     text01.style.color = "Red";
     }
@@ -149,7 +159,7 @@ $.ajax({
     var text01 = document.getElementById("timer");
     var alarmAudio = document.getElementById("alarms");
     alarmAudio.pause();
-    icon.src = "images/faces/house.png";
+    //icon.src = "images/faces/house.png";
     text01.innerHTML = ""
     selfDestructConfirmed = false;
     text01.style.color = "Lime";
